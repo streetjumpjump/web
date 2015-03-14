@@ -45,7 +45,7 @@ Q.Sprite.extend("Enemy",{
 });
 
 Q.scene("level1",function(stage) {
-    stage.collisionLayer(new Q.TileLayer({ dataAsset: 'level.json', sheet: 'tiles' }));
+    stage.collisionLayer(new Q.TileLayer({ dataAsset: 'http://www.html5quintus.com/level.json', sheet: 'tiles' }));
     var player = stage.insert(new Q.Player());
 
     stage.add("viewport").follow(player);
@@ -72,8 +72,8 @@ Q.scene('endGame',function(stage) {
     box.fit(20);
 });
 
-Q.load("sprites.png, sprites.json, level.json, tiles.png", function() {
-    Q.sheet("tiles","tiles.png", { tilew: 32, tileh: 32 });
-    Q.compileSheets("sprites.png","sprites.json");
+Q.load("http://www.html5quintus.com/sprites.png, http://www.html5quintus.com/sprites.json, http://www.html5quintus.com/level.json, http://www.html5quintus.com/tiles.png", function() {
+    Q.sheet("tiles","http://www.html5quintus.com/tiles.png", { tilew: 32, tileh: 32 });
+    Q.compileSheets("http://www.html5quintus.com/sprites.png","http://www.html5quintus.com/sprites.json");
     Q.stageScene("level1");
 });
