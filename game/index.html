@@ -28,7 +28,7 @@
                 var Q = Quintus({ development: true })
                     .include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
-                    .controls()
+                    .controls(true)
                     .touch();
 
                 Q.gravityX = 0;
@@ -43,68 +43,47 @@
                             x: 100 + 12.5,
                             y: 175 + 12.5
                         });
-                        this.add("2d, stepControls");
 
-                        //this.on("hit.sprite", function(collision) {
-                        //    if (collision.obj.isA("VictoryZone")) {
-                        //        console.log('win');
-                        //        //Q.stageScene("endGame", 1, { label: "You Won!" });
-                        //        //this.destroy();
-                        //    }
-                        //});
+                        this.add("2d, stepControls");
                     }
                 });
 
                 Q.Sprite.extend("VictoryZone", {
                     init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.victoryZone,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 12.5
-                            });
-                    }
-                });
-
-                Q.MovingSprite.extend("Enemy0", {
-                    init: function(p) {
                         this._super({
-                            asset: infoService.enemy,
-                            w: 25,
+                            asset: infoService.victoryZone,
+                            w: 250,
                             h: 25,
-                            x: 200,
-                            y: 175 - 12.5,
-                            vx: -30
+                            x: 125,
+                            y: 12.5
                         });
-                        this.add('2d');
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                console.log('death be to use all');
-                                start();
+                                Q.stageScene("endGame",1, { label: "You Win!" });
+                                collision.obj.destroy();
                             }
                         });
                     }
                 });
 
-                Q.MovingSprite.extend("Enemy1", {
+                Q.MovingSprite.extend("Enemy", {
                     init: function(p) {
                         this._super({
                             asset: infoService.enemy,
                             w: 25,
                             h: 25,
                             x: 200,
-                            y: 150 - 12.5,
-                            vx: -15
+                            y: 75 - 12.5,
+                            vx: -30
                         });
+
                         this.add('2d');
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                console.log('death be to use all');
-                                start();
+                                Q.stageScene("endGame",1, { label: "You Died" });
+                                collision.obj.destroy();
                             }
                         });
                     }
@@ -125,14 +104,33 @@
 
                 function start() {
                     Q.scene("level1", function(stage) {
-                        var player = stage.insert(new Q.Player());
-                        stage.insert(new Q.Enemy0());
-                        stage.insert(new Q.Enemy1());
+                        stage.insert(new Q.Player());
                         stage.insert(new Q.VictoryZone());
+                        stage.insert(new Q.Enemy({ x: 1, y: 2 }));
+                        stage.insert(new Q.Enemy({ x: 100, y: 200 }));
                     });
 
                     Q.scene("roads", function(stage) {
                         stage.insert(new Q.Road());
+                    });
+
+                    Q.scene('endGame',function(stage) {
+                        var box = stage.insert(new Q.UI.Container({
+                            x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+                        }));
+
+                        var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+                            label: "Play Again" }));
+                        var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h,
+                            label: stage.options.label }));
+
+                        button.on("click",function() {
+                            Q.clearStages();
+                            Q.stageScene("roads", 0);
+                            Q.stageScene('level1', 1);
+                        });
+
+                        box.fit(20);
                     });
 
                     Q.load([infoService.victoryZone, infoService.player, infoService.enemy, infoService.road], function() {
@@ -142,39 +140,8 @@
                 }
 
                 start();
-
-                //Q.scene("level1", function(stage) {
-                //    var player = stage.insert(new Q.Player());
-
-                //    stage.insert(new Q.Enemy({ x: 700, y: 0 }));
-                //    stage.insert(new Q.Enemy({ x: 800, y: 0 }));
-
-                //    stage.insert(new Q.Tower({ x: 180, y: 50 }));
-                //});
-
-                //Q.scene('endGame', function(stage) {
-                //    var box = stage.insert(new Q.UI.Container({
-                //        x: Q.width / 2, y: Q.height / 2, fill: "rgba(0,0,0,0.5)"
-                //    }));
-
-                //    var button = box.insert(new Q.UI.Button({
-                //        x: 0, y: 0, fill: "#CCCCCC",
-                //        label: "Play Again"
-                //    }))
-                //    var label = box.insert(new Q.UI.Text({
-                //        x: 10, y: -10 - button.p.h,
-                //        label: stage.options.label
-                //    }));
-                //    button.on("click", function() {
-                //        Q.clearStages();
-                //        Q.stageScene('level1');
-                //    });
-                //    box.fit(20);
-                //});
             }]);
         })();
-
-
     </script>
 </body>
 </html>
