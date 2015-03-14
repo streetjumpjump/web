@@ -68,130 +68,80 @@
                     }
                 });
 
-                Q.Sprite.extend("Enemy", {
+                Q.MovingSprite.extend("Enemy0", {
                     init: function(p) {
                         this._super({
                             asset: infoService.enemy,
                             w: 25,
-                            h: 25
+                            h: 25,
+                            x: 200,
+                            y: 175 - 12.5,
+                            vx: -30
                         });
-                        //this.add('2d, aiBounce');
+                        this.add('2d');
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame", 1, { label: "You Died" });
-                                collision.obj.destroy();
+                                console.log('death be to use all');
+                                start();
                             }
                         });
-
-                        //this.on("bump.top",function(collision) {
-                        //    if(collision.obj.isA("Player")) {
-                        //        this.destroy();
-                        //        collision.obj.p.vy = -300;
-                        //    }
-                        //});
                     }
                 });
 
-                Q.Sprite.extend("Road0", {
+                Q.MovingSprite.extend("Enemy1", {
+                    init: function(p) {
+                        this._super({
+                            asset: infoService.enemy,
+                            w: 25,
+                            h: 25,
+                            x: 200,
+                            y: 150 - 12.5,
+                            vx: -15
+                        });
+                        this.add('2d');
+
+                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                            if (collision.obj.isA("Player")) {
+                                console.log('death be to use all');
+                                start();
+                            }
+                        });
+                    }
+                });
+
+                Q.Sprite.extend("Road", {
                     init: function(p) {
                         this._super(
                             {
                                 asset: infoService.road,
                                 w: 250,
-                                h: 25,
+                                h: 150,
                                 x: 125,
-                                y: 50 + 12.5
+                                y: 125
                             });
                     }
                 });
 
-                Q.Sprite.extend("Road1", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.road,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 70 + 12.5
-                            });
-                    }
-                });
+                function start() {
+                    Q.scene("level1", function(stage) {
+                        var player = stage.insert(new Q.Player());
+                        stage.insert(new Q.Enemy0());
+                        stage.insert(new Q.Enemy1());
+                        stage.insert(new Q.VictoryZone());
+                    });
 
-                Q.Sprite.extend("Road2", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.road,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 90 + 12.5
-                            });
-                    }
-                });
+                    Q.scene("roads", function(stage) {
+                        stage.insert(new Q.Road());
+                    });
 
-                Q.Sprite.extend("Road3", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.road,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 110 + 12.5
-                            });
-                    }
-                });
+                    Q.load([infoService.victoryZone, infoService.player, infoService.enemy, infoService.road], function() {
+                        Q.stageScene("roads", 0);
+                        Q.stageScene("level1", 1);
+                    });
+                }
 
-                Q.Sprite.extend("Road4", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.road,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 130 + 12.5
-                            });
-                    }
-                });
-
-                Q.Sprite.extend("Road5", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.road,
-                                w: 250,
-                                h: 25,
-                                x: 125,
-                                y: 150 + 12.5
-                            });
-                    }
-                });
-
-                Q.scene("level1", function(stage) {
-                    var player = stage.insert(new Q.Player());
-                    stage.insert(new Q.Enemy({ x: 100, y: 80 + 12.5 }));
-                    stage.insert(new Q.Enemy({ x: 50, y: 40 + 12.5 }));
-                    stage.insert(new Q.VictoryZone());
-                });
-
-                Q.scene("roads", function(stage) {
-                    stage.insert(new Q.Road1());
-                    stage.insert(new Q.Road0());
-                    stage.insert(new Q.Road2());
-                    stage.insert(new Q.Road3());
-                    stage.insert(new Q.Road4());
-                    stage.insert(new Q.Road5());
-                });
-
-                Q.load([infoService.victoryZone, infoService.player, infoService.enemy, infoService.road], function() {
-                    Q.stageScene("level1", 1);
-                    Q.stageScene("roads", 0);
-                });
-
+                start();
 
                 //Q.scene("level1", function(stage) {
                 //    var player = stage.insert(new Q.Player());
