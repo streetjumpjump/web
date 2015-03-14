@@ -29,7 +29,10 @@
                     .include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
                     .controls()
-                    .touch()
+                    .touch();
+
+                Q.gravityX = 0;
+                Q.gravityY = 0;
 
                 Q.Sprite.extend("Player", {
                     init: function(p) {
@@ -40,7 +43,7 @@
                             x: 100 + 12.5,
                             y: 175 + 12.5
                         });
-                        //this.add("2d");
+                        this.add("2d, stepControls");
 
                         //this.on("hit.sprite", function(collision) {
                         //    if (collision.obj.isA("VictoryZone")) {
@@ -102,36 +105,22 @@
                     }
                 });
 
-                //Q.load([infoService.victoryZone, infoService.player], function() {
-                //    //Q.load([infoService.player, infoService.enemy, infoService.victoryZone], function() {
-                //    var player = new Q.Player();
-                //    var victoryZone = new Q.VictoryZone();
-                //    //var enemy = new Q.Enemy();
-
-                //    Q.gameLoop(function(dt) {
-                //        Q.clear();
-                //        player.update(dt);
-                //        //enemy.update(dt);
-                //        victoryZone.update(dt);
-                //        player.render(Q.ctx);
-                //        //enemy.render(Q.ctx);
-                //        victoryZone.render(Q.ctx);
-                //    });
-                //});
-
                 Q.scene("level1", function(stage) {
                     var player = stage.insert(new Q.Player());
-                    stage.insert(new Q.Enemy({ x: 100, y: 100 }));
-                    stage.insert(new Q.Enemy({ x: 50, y: 100 }));
+                    stage.insert(new Q.Enemy({ x: 100, y: 80 + 12.5 }));
+                    stage.insert(new Q.Enemy({ x: 50, y: 40 + 12.5 }));
                     stage.insert(new Q.Road({ y: 20 + 12.5 }));
                     stage.insert(new Q.Road({ y: 40 + 12.5 }));
                     stage.insert(new Q.Road({ y: 60 + 12.5 }));
                     stage.insert(new Q.Road({ y: 80 + 12.5 }));
                     stage.insert(new Q.Road({ y: 100 + 12.5 }));
-                    stage.insert(new Q.VictoryZone());
+                    //stage.insert(new Q.VictoryZone());
                 });
 
-                Q.stageScene("level1");
+                Q.load([infoService.victoryZone, infoService.player, infoService.enemy, infoService.road], function() {
+                    Q.stageScene("level1");
+                });
+
 
                 //Q.scene("level1", function(stage) {
                 //    var player = stage.insert(new Q.Player());
