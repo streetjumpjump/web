@@ -3,11 +3,10 @@
 
     var app = angular.module('frogger');
 
-    app.controller('game', ['infoService', function(infoService) {
+    app.controller('Game', ['infoService', function(infoService) {
         var vm = this;
 
         vm.info = infoService;
-
         // begin Quintus code -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
         var Q = Quintus()
@@ -22,7 +21,7 @@
                     y: 90,
                     w: 25,
                     h: 25,
-                    asset: '{{ info.player }}'
+                    asset: infoService.player
                 });
                 this.add('2d, platformerControls');
 
@@ -35,7 +34,7 @@
             }
         });
 
-        Q.load('{{ info.player }}', function() {
+        Q.load(infoService.player, function() {
             var player = new Q.Player();
 
             Q.gameLoop(function(dt) {
@@ -49,14 +48,14 @@
             init: function(p) {
                 this._super(p,
                     {
-                        asset: '{{ info.victoryZone }}',
+                        asset: infoService.victoryZone,
                         w: 250,
                         h: 25
                     });
             }
         });
 
-        Q.load('{{ info.victoryZone }}', function() {
+        Q.load(infoService.victoryZone, function() {
             var victoryZone = new Q.VictoryZone();
 
             Q.gameLoop(function(dt) {
@@ -69,7 +68,7 @@
         Q.Sprite.extend("Enemy", {
             init: function(p) {
                 this._super(p, {
-                    asset: '{{ info.enemy }}',
+                    asset: infoService.enemy,
                     vx: 100,
                     vy: 50,
                     w: 25,
@@ -93,7 +92,7 @@
             }
         });
 
-        Q.load('{{ info.enemy }}', function() {
+        Q.load(infoService.enemy, function() {
             var enemy = new Q.Enemy();
 
             Q.gameLoop(function(dt) {
