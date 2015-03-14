@@ -5,13 +5,13 @@
 
     app.factory('infoService', [function() {
         var infoService = {
-            title: '',
-            player: '',
-            enemy: '',
-            safeZone: '',
-            road: '',
-            divider: '',
-            victoryZone: ''
+            title: 'Sample title',
+            player: 'web/assets/player.png',
+            enemy: 'web/assets/enemy.png',
+            safeZone: 'web/assets/safeZone.png',
+            road: 'web/assets/road.png',
+            divider: 'web/assets/divider.png',
+            victoryZone: 'web/assets/victoryZone.png'
         };
 
 
