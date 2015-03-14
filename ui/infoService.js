@@ -6,12 +6,12 @@
     app.factory('infoService', [function() {
         var infoService = {
             title: 'Sample title',
-            player: 'web/assets/player.png',
-            enemy: 'web/assets/enemy.png',
-            safeZone: 'web/assets/safeZone.png',
-            road: 'web/assets/road.png',
-            divider: 'web/assets/divider.png',
-            victoryZone: 'web/assets/victoryZone.png'
+            player: 'player.png',
+            enemy: 'enemy.png',
+            safeZone: 'safeZone.png',
+            road: 'road.png',
+            divider: 'divider.png',
+            victoryZone: 'victoryZone.png'
         };
 
 
