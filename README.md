@@ -1,3 +1,3 @@
-#The Most awesome gam ever!
+#The most awesome game ever!
 
 Custom frog jumping like game...
