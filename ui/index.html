@@ -1,8 +1,78 @@
-﻿<html>
+﻿<html ng-app="frogger" ng-controller="frogger as home">
 <head>
-    {{ home.title }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="infoService.js"></script>
+    <title>{{ home.pageTitle }}</title>
 </head>
 <body>
-    <h1>Complete</h1>
+    <div class="jumbotron">
+        <h2>Create your own Street Jump Jump!</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Title: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.title" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Player color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.player" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Enemy color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.enemy" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Safe Zone color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.safeZone" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Road color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.road" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Divider color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.divider" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Victory Zone color: </label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="home.info.victoryZone" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>The title from model: {{home.info.title}}</label>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>
