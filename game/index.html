@@ -25,7 +25,10 @@
                 vm.info = infoService;
                 // begin Quintus code -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-                var Q = Quintus({ development: true })
+                var Q = Quintus({
+                    development: true,
+                    imagePath: infoService.path
+                })
                     .include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
                     .controls(true)

@@ -11,7 +11,8 @@
             safeZone: 'safeZone.png',
             road: 'road.png',
             divider: 'divider.png',
-            victoryZone: 'victoryZone.png'
+            victoryZone: 'victoryZone.png',
+            path: 'images/'
         };
 
 
