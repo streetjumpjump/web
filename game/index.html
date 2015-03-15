@@ -136,11 +136,11 @@
                 function start() {
                     Q.scene("level1", function (stage) {
                         stage.insert(new Q.Player());
-                        stage.insert(new Q.VictoryZone());
                         generateEnemies(stage);
                     });
 
-                    Q.scene("roads", function (stage) {
+                    Q.scene("roads", function(stage) {
+                        stage.insert(new Q.VictoryZone());
                         stage.insert(new Q.Road());
                     });
 
@@ -164,6 +164,33 @@
 
 
                         button.on("click", function () {
+                            Q.clearStages();
+                            Q.stageScene("roads", 0);
+                            Q.stageScene('level1', 1);
+                            levelCounter = 1;
+                            Q.stageScene('hud', 2, { label: levelCounter });
+                        });
+
+                        box.fit(20);
+
+                    });
+
+                    Q.scene('nextLevel', function(stage) {
+                        var box = stage.insert(new Q.UI.Container({
+                            x: Q.width / 2, y: Q.height / 2, fill: "rgba(0,0,0,0.5)"
+                        }));
+
+                        var button = box.insert(new Q.UI.Button({
+                            x: 0, y: 0, fill: "#369",
+                            label: "Next Level"
+                        }));
+                        var label = box.insert(new Q.UI.Text({
+                            x: 40, y: -40 - button.p.h,
+                            label: stage.options.label, color: "#fff"
+                        }));
+
+
+                        button.on("click", function() {
                             Q.clearStages();
                             Q.stageScene("roads", 0);
                             Q.stageScene('level1', 1);
