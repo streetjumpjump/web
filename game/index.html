@@ -29,9 +29,9 @@
                 var Q = Quintus({
                     development: true
                 }).include("Scenes, Sprites, Input, 2D, Touch, UI")
-                    .setup("quintus")
-                    .controls(true)
-                    .touch();
+                        .setup("quintus")
+                        .controls(true)
+                        .touch();
 
                 Q.gravityX = 0;
                 Q.gravityY = 0;
@@ -52,7 +52,7 @@
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("VictoryZone")) {
-                                Q.stageScene("endGame",1, { label: "You Win!" });
+                                Q.stageScene("endGame", 1, { label: "You Win!" });
                                 collision.obj.destroy();
                             }
                         });
@@ -64,9 +64,9 @@
                         this._super({
                             asset: infoService.defaultPath + infoService.victoryZone,
                             w: 1000,
-                            h: 100,
+                            h: 200,
                             x: 500,
-                            y: 50
+                            y: 100
                         });
                     }
                 });
@@ -76,18 +76,25 @@
                         this._super({
                             asset: localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy,
                             w: 100,
-                            h: 100,
-                            vx: -120
+                            h: 89
                         });
 
                         this.add('2d');
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame",1, { label: "You Died" });
+                                Q.stageScene("endGame", 1, { label: "You Died" });
                                 collision.obj.destroy();
                             }
                         });
+                    },
+
+                    step: function(dt) {
+                        if (this.p.x < -50) {
+                            this.p.x = 1050;
+                        } else if (this.p.x > 1050) {
+                            this.p.x = -50;
+                        }
                     }
                 });
 
@@ -114,28 +121,36 @@
                         stage.insert(new Q.Road());
                     });
 
-                    Q.scene('endGame',function(stage) {
+                    Q.scene('endGame', function(stage) {
                         var box = stage.insert(new Q.UI.Container({
-                            x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+                            x: Q.width / 2, y: Q.height / 2, fill: "rgba(0,0,0,0.5)"
                         }));
 
-                        var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#336699",
-                            label: "Play Again" }));
-                        var label = box.insert(new Q.UI.Text({x:40, y: -40 - button.p.h,
-                            label: stage.options.label, color: "#fff" }));
+                        var button = box.insert(new Q.UI.Button({
+                            x: 0, y: 0, fill: "#336699",
+                            label: "Play Again"
+                        }));
+                        var label = box.insert(new Q.UI.Text({
+                            x: 40, y: -40 - button.p.h,
+                            label: stage.options.label, color: "#fff"
+                        }));
 
-                        button.on("click",function() {
+
+                        button.on("click", function() {
                             Q.clearStages();
                             Q.stageScene("roads", 0);
                             Q.stageScene('level1', 1);
                         });
 
                         box.fit(20);
+
                     });
+
+
 
                     Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
                         Q.stageScene("roads", 0);
-                        Q.stageScene("level1", 1);
+                        Q.stageScene('level1', 1);
                     });
                 }
 
