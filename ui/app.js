@@ -15,12 +15,12 @@
         vm.showGame = false;
 
         vm.showPic = function() {
-            window.location.href = "/takePictures.html";
+            window.location.href = "/web/takePictures.html";
 
 
         };
         vm.showGame = function() {
-            window.location.href = "/play.html";
+            window.location.href = "/web/play.html";
         };
     }]);
 })();
