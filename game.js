@@ -5,7 +5,7 @@
 
     app.controller('Game', ['infoService', function(infoService) {
         var vm = this;
-        console.log('ran controller');
+
         vm.info = infoService;
 
         var levelCounter = 1;
@@ -23,7 +23,8 @@
 
         Q.gravityX = 0;
         Q.gravityY = 0;
-        Q.input.disableTouchControls();
+
+        Q.input.keypad.controls = [];
 
         Q.Sprite.extend("Player", {
             init: function(p) {
@@ -38,7 +39,6 @@
                 });
 
                 this.add("2d, stepControls");
-
             },
             step: function(dt) {
                 if (this.p.y > 750) {
@@ -175,10 +175,7 @@
                 }));
 
                 button.on("click", function() {
-                    Q.clearStages();
-                    Q.stageScene("roads", 0);
-                    Q.stageScene('level1', 1);
-                    Q.stageScene('hud', 2, { label: levelCounter });
+                    startNextLevel();
                 });
 
                 box.fit(20);
@@ -188,13 +185,19 @@
             Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
                 resetBoard();
             });
+        }
 
+        function startNextLevel() {
+            Q.clearStages();
+            Q.stageScene("roads", 0);
+            Q.stageScene('level1', 1);
+            Q.stageScene('hud', 2, { label: levelCounter });
         }
 
         function generateEnemies(stage) {
             var enemies = [];
             var minSpeed = 150 + (levelCounter * 60);
-            var maxSpeed = minSpeed + 200;
+            var maxSpeed = minSpeed + 150;
 
             for (var i = 0; i < 5; i++) {
                 enemies.push(stage.insert(new Q.Enemy()));
@@ -225,14 +228,16 @@
 
         function resetBoard() {
             levelCounter = 1;
-            Q.clearStages();
-            Q.stageScene("roads", 0);
-            Q.stageScene('level1', 1);
-            Q.stageScene('hud', 2, { label: levelCounter });
+            startNextLevel();
         }
 
         document.getElementById("ResetPics").addEventListener("click", function() {
             resetPics();
+        });
+
+        document.getElementById("Cheat").addEventListener("click", function() {
+            levelCounter = levelCounter++;
+            startNextLevel();
         });
 
         start();
