@@ -185,8 +185,7 @@
 
                 function generateEnemies(stage) {
                     var enemies = [];
-                    var currentLevel = 3;  // change to pull from game state
-                    var minSpeed = 150 + (currentLevel * 60);
+                    var minSpeed = 150 + (levelCounter * 60);
                     var maxSpeed = minSpeed + 100;
 
                     for (var i = 0; i < 5; i++) {
