@@ -6,7 +6,7 @@
     app.factory('infoService', [function() {
         var infoService = {
             title: 'Sample title',
-            player: 'player.png',
+            player: 'player2.png',
             enemy: 'enemy.png',
             safeZone: 'safeZone.png',
             road: 'road.png',
@@ -19,5 +19,4 @@
 
         return infoService;
     }]);
-
 })();
