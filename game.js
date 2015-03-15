@@ -285,6 +285,7 @@
             }
         });
 
-        $scope.messages = $firebaseArray(fireBase);
+        var usersRefList = new Firebase("https://streep-jump-jump.firebaseio.com/users");
+        $scope.messages = $firebaseArray(usersRefList);
     }]);
 })();
