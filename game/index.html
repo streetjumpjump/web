@@ -9,7 +9,7 @@
     <title>{{ game.info.title }}</title>
 </head>
 <body>
-    <canvas id="quintus" width="250" height="200" style="background-color: #EEE;"></canvas>
+    <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
 
     <script>
         (function() {
@@ -37,10 +37,10 @@
                     init: function(p) {
                         this._super({
                             asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
-                            w: 25,
-                            h: 25,
-                            x: 100 + 12.5,
-                            y: 175 + 12.5
+                            w: 100,
+                            h: 100,
+                            x: 400 + 50,
+                            y: 700 + 50
                         });
 
                         this.add("2d, stepControls");
@@ -57,10 +57,10 @@
                     init: function(p) {
                         this._super({
                             asset: infoService.defaultPath + infoService.victoryZone,
-                            w: 250,
-                            h: 25,
-                            x: 125,
-                            y: 12.5
+                            w: 1000,
+                            h: 100,
+                            x: 500,
+                            y: 50
                         });
                     }
                 });
@@ -69,9 +69,9 @@
                     init: function(p) {
                         this._super({
                             asset: infoService.defaultPath + infoService.enemy,
-                            w: 25,
-                            h: 25,
-                            vx: -30
+                            w: 100,
+                            h: 100,
+                            vx: -120
                         });
 
                         this.add('2d');
@@ -90,10 +90,10 @@
                         this._super(
                             {
                                 asset: infoService.defaultPath + infoService.road,
-                                w: 250,
-                                h: 150,
-                                x: 125,
-                                y: 125
+                                w: 1000,
+                                h: 600,
+                                x: 500,
+                                y: 500
                             });
                     }
                 });
@@ -107,12 +107,12 @@
                         var enemies = [];
 
                         for (var i = 0; i < 5; i++) {
-                            enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
+                            enemies.push(stage.insert(new Q.Enemy({ x: 200, y: 200 })));
                         }
 
                         enemies.forEach(function(enemy, index) {
-                            enemy.p.x = 100 + (index * 30);
-                            enemy.p.y = 62 + (index * 25);
+                            enemy.p.x = 400 + (index * 120);
+                            enemy.p.y = 248 + (index * 100);
                         });
                     });
 
@@ -125,9 +125,9 @@
                             x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
                         }));
 
-                        var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+                        var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#336699",
                             label: "Play Again" }));
-                        var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h,
+                        var label = box.insert(new Q.UI.Text({x:40, y: -40 - button.p.h,
                             label: stage.options.label, color: "#fff" }));
 
                         button.on("click",function() {
