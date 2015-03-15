@@ -205,9 +205,7 @@
                     });
 
                     Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
-                        Q.stageScene("roads", 0);
-                        Q.stageScene('level1', 1);
-                        Q.stageScene('hud', 2, { label: levelCounter });
+                        resetBoard();
                     });
 
                     
@@ -246,9 +244,11 @@
                 }
 
                 function resetBoard() {
+                    levelCounter = 1;
                     Q.clearStages();
                     Q.stageScene("roads", 0);
                     Q.stageScene('level1', 1);
+                    Q.stageScene('hud', 2, { label: levelCounter });
                 }
 
                 document.getElementById("ResetPics").addEventListener("click", function () {
