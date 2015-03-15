@@ -164,15 +164,19 @@
 
                 function generateEnemies(stage) {
                     var enemies = [];
+                    var currentLevel = 5;  // change to pull from game state
+                    var minSpeed = 150 + (currentLevel * 60);
+                    var maxSpeed = minSpeed + 100;
 
                     for (var i = 0; i < 5; i++) {
                         enemies.push(stage.insert(new Q.Enemy()));
                     }
 
                     enemies.forEach(function (enemy, index) {
+                        var speed = getRandomNumber(minSpeed, maxSpeed);
                         enemy.p.x = getRandomNumber(0, 1000);
                         enemy.p.y = 248 + (index * 100);
-                        enemy.p.vx = getRandomNumber(0, 1) ? -500 : 620;
+                        enemy.p.vx = getRandomNumber(0, 1) ? (-1 * speed) : speed;
 
                         if (enemy.p.vx > 0 && !localStorage.enemyImage) {
                             enemy.p.angle = 180;
