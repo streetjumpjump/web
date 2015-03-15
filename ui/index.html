@@ -78,7 +78,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <label>Take Photo</label>
+                <label>Take Photo of you!</label>
             </div>
             <div class="col-md-2">
                 <button id="snap">Snap Photo</button>
@@ -87,7 +87,7 @@
                 <button id="cropIt">Save Photo</button>
             </div>
             <div class="col-md-4">
-                <img id="croppedImage" style="width: 100px; height: 100px;" alt="upload your image"/>
+                <img id="croppedImage" style="width: 100px; height: 100px;" alt="upload your image" />
             </div>
         </div>
         <div class="row">
@@ -97,6 +97,29 @@
             </div>
             <div class="col-md-6">
                 <img id="image" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Take Photo of your friend!</label>
+            </div>
+            <div class="col-md-2">
+                <button id="snap2">Snap Photo</button>
+            </div>
+            <div class="col-md-2">
+                <button id="cropIt2">Save Photo</button>
+            </div>
+            <div class="col-md-4">
+                <img id="croppedImage2" style="width: 100px; height: 100px;" alt="upload your friend's image" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <video id="video2" width="640" height="480" autoplay></video>
+                <canvas id="canvas2" width="640" height="480" style="display: none;"></canvas>
+            </div>
+            <div class="col-md-6">
+                <img id="image2" />
             </div>
         </div>
     </div>
@@ -234,7 +257,102 @@
 
             //return dataURL;
             document.getElementById("croppedImage").src = dataURL;
-            localStorage.setItem('img', dataURL)
+            localStorage.setItem('playerImage', dataURL)
+        }
+
+
+
+    </script>
+    <script>
+
+        var cropX = 0, cropY = 0, cropWidth = 0, cropHeight = 0;
+
+        // Put event listeners into place
+        window.addEventListener("DOMContentLoaded", function() {
+            // Grab elements, create settings, etc.
+            var canvas = document.getElementById("canvas2"),
+                context = canvas.getContext("2d"),
+                video = document.getElementById("video2"),
+                videoObj = { "video": true },
+                errBack = function(error) {
+                    console.log("Video capture error: ", error.code);
+                };
+
+            // Put video listeners into place
+            if (navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(videoObj, function(stream) {
+                    video.src = stream;
+                    video.play();
+                }, errBack);
+            } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+                navigator.webkitGetUserMedia(videoObj, function(stream) {
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            } else if (navigator.mozGetUserMedia) { // WebKit-prefixed
+                navigator.mozGetUserMedia(videoObj, function(stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            }
+
+            // Trigger photo take
+            document.getElementById("snap2").addEventListener("click", function() {
+                context.drawImage(video, 0, 0, 640, 480);
+                dataURL = canvas.toDataURL("image/png");
+                document.getElementById('image2').src = dataURL;
+
+            });
+
+            // Trigger crop
+            document.getElementById("cropIt2").addEventListener("click", function() { cropIt2("canvas2") });
+
+            // Prepare the cropping
+            document.getElementById('image2').onload = function() {
+                new Cropper(this, {
+                    min_width: 100,
+                    min_height: 100,
+                    max_width: 250,
+                    max_height: 250,
+                    ratio: { width: 1, height: 1 },
+                    update: function(coordinates) {
+                        cropX = coordinates.x;
+                        cropY = coordinates.y
+                        cropWidth = coordinates.width;
+                        cropHeight = coordinates.height;
+                    }
+                });
+            }
+        }, false);
+
+
+        function cropIt2(canvasID) {
+            var canvas = document.getElementById(canvasID);
+            // canvas context
+            var context = canvas.getContext("2d");
+            // get the current ImageData for the canvas
+            var data = context.getImageData(0, 0, canvas.width, canvas.height);
+            // store the current globalCompositeOperation
+            var compositeOperation = context.globalCompositeOperation;
+            // set to draw behind current content
+            context.globalCompositeOperation = "destination-over";
+            //set background color
+            context.fillStyle = "#FFFFFF";
+            // draw background/rectangle on entire canvas
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            var tempCanvas = document.createElement("canvas"),
+                tempContext = tempCanvas.getContext("2d");
+
+            tempCanvas.width = cropWidth;
+            tempCanvas.height = cropHeight;
+
+            tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
+            dataURL = tempCanvas.toDataURL("image/png");
+
+            //return dataURL;
+            document.getElementById("croppedImage2").src = dataURL;
+            localStorage.setItem('enemyImage', dataURL)
         }
 
 

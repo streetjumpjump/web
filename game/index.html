@@ -39,7 +39,7 @@
                 Q.Sprite.extend("Player", {
                     init: function(p) {
                         this._super({
-                            asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
+                            asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player,
                             w: 100,
                             h: 100,
                             x: 400 + 50,
@@ -74,7 +74,7 @@
                 Q.MovingSprite.extend("Enemy", {
                     init: function() {
                         this._super({
-                            asset: infoService.defaultPath + infoService.enemy,
+                            asset: localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy,
                             w: 100,
                             h: 100,
                             vx: -120
@@ -133,7 +133,7 @@
                         box.fit(20);
                     });
 
-                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
+                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene("level1", 1);
                     });

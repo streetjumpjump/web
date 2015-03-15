@@ -1569,9 +1569,12 @@ var Quintus = function Quintus(opts) {
     */
     Q.loadAssetImage = function(key, src, callback, errorCallback) {
         var img = new Image();
-        if (src === 'local') {
+        if (src === 'player') {
             img.onload = function() { callback(key, img); };
-            img.src = localStorage.img;
+            img.src = localStorage.playerImage;
+        } else if (src === 'enemy') {
+            img.onload = function() { callback(key, img); };
+            img.src = localStorage.enemyImage;
         } else {
             img.onload = function() { callback(key, img); };
             img.onerror = errorCallback;
