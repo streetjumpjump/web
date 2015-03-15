@@ -2,7 +2,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src='http://cdn.html5quintus.com/v0.2.0/quintus-all.js'></script>
+    <script src="Quintus.js"></script>
     <script src="../ui/app.js"></script>
     <script src="../ui/infoService.js"></script>
 
@@ -26,8 +26,7 @@
                 // begin Quintus code -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
                 var Q = Quintus({
-                    development: true,
-                    imagePath: infoService.path
+                    development: true
                 })
                     .include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
@@ -40,7 +39,7 @@
                 Q.Sprite.extend("Player", {
                     init: function(p) {
                         this._super({
-                            asset: infoService.player,
+                            asset: 'local',
                             w: 25,
                             h: 25,
                             x: 100 + 12.5,
@@ -54,7 +53,7 @@
                 Q.Sprite.extend("VictoryZone", {
                     init: function(p) {
                         this._super({
-                            asset: infoService.victoryZone,
+                            asset: infoService.defaultPath + infoService.victoryZone,
                             w: 250,
                             h: 25,
                             x: 125,
@@ -73,7 +72,7 @@
                 Q.MovingSprite.extend("Enemy", {
                     init: function(p) {
                         this._super({
-                            asset: infoService.enemy,
+                            asset: infoService.defaultPath + infoService.enemy,
                             w: 25,
                             h: 25,
                             x: 200,
@@ -96,7 +95,7 @@
                     init: function(p) {
                         this._super(
                             {
-                                asset: infoService.road,
+                                asset: infoService.defaultPath + infoService.road,
                                 w: 250,
                                 h: 150,
                                 x: 125,
@@ -136,7 +135,7 @@
                         box.fit(20);
                     });
 
-                    Q.load([infoService.victoryZone, infoService.player, infoService.enemy, infoService.road], function() {
+                    Q.load([ infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, 'local'], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene("level1", 1);
                     });

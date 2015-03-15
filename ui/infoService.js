@@ -12,7 +12,8 @@
             road: 'road.png',
             divider: 'divider.png',
             victoryZone: 'victoryZone.png',
-            path: 'images/'
+            defaultPath: 'images/'
+
         };
 
 
