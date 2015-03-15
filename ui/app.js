@@ -21,6 +21,10 @@
         vm.showGame = function() {
             window.location.href = "play.html";
         };
+
+        vm.showTitle = function() {
+            window.location.href = "index.html";
+        }
     }]);
 })();
 

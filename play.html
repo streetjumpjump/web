@@ -17,22 +17,30 @@
             <div>
                 <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
                 <h4 style="text-align: center;">Active Users: {{messages.length}}</h4>
-                <button id="ResetPics" class="btn" style="display: block; margin: 9px auto">Reset To Normal</button>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <button id="ResetPics" class="btn" style="display: inline-block; margin-right: 5px;">Reset To Normal</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button ng-click="home.showTitle()" class="btn" style="display: inline-block;">Create Your Own Game!</button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
             </div>
-
         </section>
     </main>
-<footer>
-    <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
-    <!--&lt;!&ndash; Street Jump Jump &ndash;&gt;-->
-    <!--<ins class="adsbygoogle"-->
-         <!--style="display:block"-->
-         <!--data-ad-client="ca-pub-5376316241677971"-->
-         <!--data-ad-slot="1895600846"-->
-         <!--data-ad-format="auto"></ins>-->
-    <!--<script>-->
+    <footer>
+        <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+        <!--&lt;!&ndash; Street Jump Jump &ndash;&gt;-->
+        <!--<ins class="adsbygoogle"-->
+        <!--style="display:block"-->
+        <!--data-ad-client="ca-pub-5376316241677971"-->
+        <!--data-ad-slot="1895600846"-->
+        <!--data-ad-format="auto"></ins>-->
+        <!--<script>-->
         <!--(adsbygoogle = window.adsbygoogle || []).push({});-->
-    <!--</script>-->
-</footer>
+        <!--</script>-->
+    </footer>
 </body>
 </html>
