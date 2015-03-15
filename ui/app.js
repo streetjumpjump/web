@@ -13,6 +13,16 @@
         vm.showTitle = true;
         vm.showImage = false;
         vm.showGame = false;
+
+        vm.next = function() {
+            if (vm.showTitle) {
+                vm.showTitle = false;
+                vm.showImage = true;
+            }else if (vm.showImage) {
+                vm.showImage = false;
+                vm.showGame = true;
+            }
+        }
     }]);
 })();
 
