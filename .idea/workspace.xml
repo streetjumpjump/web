@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="58899338-6846-4e5b-99d7-058e07dc6f7a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/index.html" afterPath="$PROJECT_DIR$/game/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,40 +36,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ui/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.058824" vertical-offset="1976" max-vertical-offset="3525">
-              <caret line="120" column="32" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
-              <folding>
-                <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#1;n#div#1;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#5054#5927#0" expanded="false" />
-                <element signature="e#5963#6658#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15266272" vertical-offset="921" max-vertical-offset="6775">
-              <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Quintus.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game/Quintus.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.0588236" vertical-offset="94519" max-vertical-offset="168825">
-              <caret line="3789" column="48" selection-start-line="3789" selection-start-column="48" selection-end-line="3789" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.70414203" vertical-offset="1230" max-vertical-offset="2075">
+              <caret line="255" column="16" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="n#style#0;n#canvas#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#1535#2924#0" expanded="false" />
+                <element signature="e#2975#3352#0" expanded="false" />
+                <element signature="e#3403#4445#0" expanded="false" />
+                <element signature="e#4489#4858#0" expanded="false" />
+                <element signature="e#4902#5239#0" expanded="false" />
+                <element signature="e#5276#7961#0" expanded="false" />
+                <element signature="e#8273#9094#0" expanded="false" />
+                <element signature="e#9133#9456#0" expanded="false" />
+                <element signature="e#9496#9591#0" expanded="false" />
+                <element signature="e#9683#9735#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -89,8 +71,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ui/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="850">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -321,7 +303,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -395,9 +377,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ui/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="850">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game/Quintus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24378698" vertical-offset="94519" max-vertical-offset="168825">
+          <caret line="3789" column="48" selection-start-line="3789" selection-start-column="48" selection-end-line="3789" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ui/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.058824" vertical-offset="1976" max-vertical-offset="3525">
+        <state vertical-scroll-proportion="1.2427185" vertical-offset="1976" max-vertical-offset="3525">
           <caret line="120" column="32" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
           <folding>
             <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -410,14 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="100" max-vertical-offset="600">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui/infoService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="50" max-vertical-offset="700">
@@ -426,21 +418,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/Quintus.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0588236" vertical-offset="94519" max-vertical-offset="168825">
-          <caret line="3789" column="48" selection-start-line="3789" selection-start-column="48" selection-end-line="3789" selection-end-column="48" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15266272" vertical-offset="921" max-vertical-offset="6775">
-          <caret line="42" column="44" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-          <folding />
+        <state vertical-scroll-proportion="0.70414203" vertical-offset="1230" max-vertical-offset="2075">
+          <caret line="255" column="16" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#1535#2924#0" expanded="false" />
+            <element signature="e#2975#3352#0" expanded="false" />
+            <element signature="e#3403#4445#0" expanded="false" />
+            <element signature="e#4489#4858#0" expanded="false" />
+            <element signature="e#4902#5239#0" expanded="false" />
+            <element signature="e#5276#7961#0" expanded="false" />
+            <element signature="e#8273#9094#0" expanded="false" />
+            <element signature="e#9133#9456#0" expanded="false" />
+            <element signature="e#9496#9591#0" expanded="false" />
+            <element signature="e#9683#9735#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
