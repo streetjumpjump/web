@@ -39,9 +39,9 @@
                     stepDelay: 0.2  // seconds to delay before next step
                 });
 
-                this.add("2d, stepControls");
-
+                this.add("2d, stepControls, animation");
                 Q.input.on("fire", this, "cheat");
+
             },
             step: function(dt) {
                 if (this.p.y > 750) {
@@ -51,6 +51,9 @@
                     if (this.p.asset !== infoService.defaultPath + infoService.happyPlayer) {
                         Q.stageScene("nextLevel", 2, { label: "Next Level" });
                         this.p.asset = infoService.defaultPath + infoService.happyPlayer;
+                        console.log('this: ', this);
+                        console.log('player: ', Q('player'));
+                        this.p.animate({ angle: 360 }, 100);
                     }
                 }
 
@@ -129,7 +132,9 @@
 
         function start() {
             Q.scene("level1", function(stage) {
-                stage.insert(new Q.Player());
+                var player = stage.insert(new Q.Player());
+
+                player.add("tween");
                 generateEnemies(stage);
             });
 
