@@ -30,7 +30,7 @@
 
                     <img id="playerImage" />
                     <video id="video" width="640" height="480" autoplay></video>
-                    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+                    <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
                 </div>
             </div>
             <div class="row">
@@ -49,7 +49,6 @@
             var canvas = document.getElementById("canvas"),
                 context = canvas.getContext("2d"),
                 video = document.getElementById("video"),
-                videoObj = { "video": true },
                 errBack = function(error) {
                     console.log("Video capture error: ", error.code);
                 };
@@ -74,8 +73,10 @@
             });
 
             function takePicture() {
+                context.clearRect ( 0 , 0 , canvas.width, canvas.height );
                 context.drawImage(video, 0, 0, 640, 480);
                 var dataURL = canvas.toDataURL("image/png");
+
                 $("#playerImage").attr("src", dataURL);
                 $("#video").hide();
                 $(".cropper").show();
@@ -111,17 +112,17 @@
 
             function startPlayerVideo(imageFileName) {
                 if (navigator.getUserMedia) { // Standard
-                    navigator.getUserMedia(videoObj, function(stream) {
+                    navigator.getUserMedia({ "video": true }, function(stream) {
                         video.src = stream;
                         video.play();
                     }, errBack);
                 } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
-                    navigator.webkitGetUserMedia(videoObj, function(stream) {
+                    navigator.webkitGetUserMedia({ "video": true }, function(stream) {
                         video.src = window.webkitURL.createObjectURL(stream);
                         video.play();
                     }, errBack);
                 } else if (navigator.mozGetUserMedia) { // Moz-prefixed
-                    navigator.mozGetUserMedia(videoObj, function(stream) {
+                    navigator.mozGetUserMedia({ "video": true }, function(stream) {
                         video.src = window.URL.createObjectURL(stream);
                         video.play();
                     }, errBack);
