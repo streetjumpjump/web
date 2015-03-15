@@ -3,7 +3,7 @@
 
     var app = angular.module('frogger', []);
     
-    app.controller('frogger', ['infoService', function(infoService) {
+    app.controller('frogger', ['infoService', '$location', function(infoService, $location) {
         var vm = this;
 
         vm.pageTitle = 'The Frogger Page';
@@ -14,15 +14,14 @@
         vm.showImage = false;
         vm.showGame = false;
 
-        vm.next = function() {
-            if (vm.showTitle) {
-                vm.showTitle = false;
-                vm.showImage = true;
-            }else if (vm.showImage) {
-                vm.showImage = false;
-                vm.showGame = true;
-            }
-        }
+        vm.showPic = function() {
+            window.location.href = "/takePictures.html";
+
+
+        };
+        vm.showGame = function() {
+            window.location.href = "/play.html";
+        };
     }]);
 })();
 
