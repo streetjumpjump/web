@@ -41,35 +41,20 @@
         </div>
         <div class="col-md-6">
             <label>Take Photo of you!</label><br />
-            <button id="snap">Snap Photo</button>
-            <button id="cropIt">Save Photo</button><br />
+            <button class="snap">Snap Photo</button>
+            <button class="crop">Save Photo</button><br />
+            <img id="croppedImage" style="width: 300px; height: 300px; display: none;" /><br /><br />
 
-            <img id="croppedImage" style="width: 300px; height: 300px; display: none;" alt="upload your image" />
-            <img id="image" />
+            <label>Take Photo of the enemy!</label><br />
+            <button class="snapEnemy">Snap Photo</button>
+            <button class="cropEnemy">Save Photo</button><br />
+            <img id="croppedImageEnemy" style="width: 300px; height: 300px; display: none;" />
+
+            <img id="playerImage" />
             <video id="video" width="640" height="480" autoplay></video>
             <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
         </div>
     </div>
-
-    <section>
-    <!--<div class="row">-->
-        <!--<div class="col-md-2">-->
-            <!--<label>Take Photo of you!</label><br />-->
-            <!--<button id="snap2">Snap Photo</button>-->
-            <!--<button id="cropIt2">Save Photo</button>-->
-            <!--<img id="croppedImage2" style="width: 100px; height: 100px;" alt="upload your image" />-->
-            <!--<img id="image2" />-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-        <!--<div class="col-md-6">-->
-            <!--<video id="video2" width="640" height="480" autoplay></video>-->
-        <!--</div>-->
-        <!--<div class="col-md-6">-->
-            <!--<canvas id="canvas2" width="640" height="480" style="display: none;"></canvas>-->
-        <!--</div>-->
-    <!--</div>-->
-    </section>
 </main>
     <script>
         $(document).ready(function() {
@@ -87,24 +72,31 @@
             startPlayerVideo();
             loadCropper();
 
-            $("#snap").on("click", function() {
+            $(".snap").on("click", function() {
                 takePicture();
             });
 
-            $("#cropIt").on("click", function() {
-                cropPhoto("canvas");
+            $(".crop").on("click", function() {
+                cropPhoto({ canvasID: "canvas", enemy: false });
+            });
+
+            $(".snapEnemy").on("click", function() {
+                takePicture();
+            });
+
+            $(".cropEnemy").on("click", function() {
+                cropPhoto({ canvasID: "canvas", enemy: true });
             });
 
             function takePicture() {
                 context.drawImage(video, 0, 0, 640, 480);
                 var dataURL = canvas.toDataURL("image/png");
-                document.getElementById('image').src = dataURL;
-
+                $("#playerImage").attr("src",dataURL);
                 $("#video").hide();
             }
 
-            function cropPhoto(canvasID) {
-                var canvas = document.getElementById(canvasID);
+            function cropPhoto(options) {
+                var canvas = document.getElementById(options.canvasID);
                 var context = canvas.getContext("2d");
 
                 context.globalCompositeOperation = "destination-over";
@@ -120,10 +112,16 @@
                 tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
                 var dataURL = tempCanvas.toDataURL("image/png");
 
-                document.getElementById("croppedImage").src = dataURL;
-                localStorage.setItem('playerImage', dataURL);
+                if(options.enemy) {
+                    localStorage.setItem('enemyImage', dataURL);
+                    $("#croppedImageEnemy").attr("src", dataURL);
+                    $("#croppedImageEnemy").show();
+                } else {
+                    localStorage.setItem('playerImage', dataURL);
+                    $("#croppedImage").attr("src", dataURL);
+                    $("#croppedImage").show();
+                }
 
-                $("#croppedImage").show();
                 $(".cropper").hide();
             }
 
@@ -147,7 +145,7 @@
             }
 
             function loadCropper(){
-                document.getElementById('image').onload = function() {
+                document.getElementById('playerImage').onload = function() {
                     new Cropper(this, {
                         min_width: 250,
                         min_height: 250,
