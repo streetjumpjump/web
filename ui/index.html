@@ -1,11 +1,16 @@
 ﻿<html ng-app="frogger" ng-controller="frogger as home">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="app.js"></script>
-    <script src="infoService.js"></script>
+    <link href="ui.css" rel="stylesheet" />
     <link href="cropper.css" rel="stylesheet" />
     <script src="cropper.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="infoService.js"></script>
+
     <title>{{ home.pageTitle }}</title>
 </head>
 <body>
@@ -34,60 +39,95 @@
             <label>Victory Zone color: </label> <br />
             <input type="text" ng-model="home.info.victoryZone" /><br />
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-6">
             <label>Take Photo of you!</label><br />
             <button id="snap">Snap Photo</button>
-            <button id="cropIt">Save Photo</button>
-            <img id="croppedImage" style="width: 100px; height: 100px;" alt="upload your image" />
+            <button id="cropIt">Save Photo</button><br />
+
+            <img id="croppedImage" style="width: 300px; height: 300px; display: none;" alt="upload your image" />
             <img id="image" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
             <video id="video" width="640" height="480" autoplay></video>
-        </div>
-        <div class="col-md-6">
             <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-2">
-            <label>Take Photo of you!</label><br />
-            <button id="snap2">Snap Photo</button>
-            <button id="cropIt2">Save Photo</button>
-            <img id="croppedImage2" style="width: 100px; height: 100px;" alt="upload your image" />
-            <img id="image2" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <video id="video2" width="640" height="480" autoplay></video>
-        </div>
-        <div class="col-md-6">
-            <canvas id="canvas2" width="640" height="480" style="display: none;"></canvas>
-        </div>
-    </div>
+    <section>
+    <!--<div class="row">-->
+        <!--<div class="col-md-2">-->
+            <!--<label>Take Photo of you!</label><br />-->
+            <!--<button id="snap2">Snap Photo</button>-->
+            <!--<button id="cropIt2">Save Photo</button>-->
+            <!--<img id="croppedImage2" style="width: 100px; height: 100px;" alt="upload your image" />-->
+            <!--<img id="image2" />-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+            <!--<video id="video2" width="640" height="480" autoplay></video>-->
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+            <!--<canvas id="canvas2" width="640" height="480" style="display: none;"></canvas>-->
+        <!--</div>-->
+    <!--</div>-->
+    </section>
 </main>
     <script>
-        function startPlayerImage() {
+        $(document).ready(function() {
             var cropX = 0, cropY = 0, cropWidth = 0, cropHeight = 0;
 
-            // Put event listeners into place
-            window.addEventListener("DOMContentLoaded", function() {
-                // Grab elements, create settings, etc.
-                var canvas = document.getElementById("canvas"),
-                        context = canvas.getContext("2d"),
-                        video = document.getElementById("video"),
-                        videoObj = { "video": true },
-                        errBack = function(error) {
-                            console.log("Video capture error: ", error.code);
-                        };
+            // Grab elements, create settings, etc.
+            var canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d"),
+                video = document.getElementById("video"),
+                videoObj = { "video": true },
+                errBack = function(error) {
+                    console.log("Video capture error: ", error.code);
+                };
 
-                // Put video listeners into place
+            startPlayerVideo();
+            loadCropper();
+
+            $("#snap").on("click", function() {
+                takePicture();
+            });
+
+            $("#cropIt").on("click", function() {
+                cropPhoto("canvas");
+            });
+
+            function takePicture() {
+                context.drawImage(video, 0, 0, 640, 480);
+                var dataURL = canvas.toDataURL("image/png");
+                document.getElementById('image').src = dataURL;
+
+                $("#video").hide();
+            }
+
+            function cropPhoto(canvasID) {
+                var canvas = document.getElementById(canvasID);
+                var context = canvas.getContext("2d");
+
+                context.globalCompositeOperation = "destination-over";
+                context.fillStyle = "#FFFFFF";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                var tempCanvas = document.createElement("canvas"),
+                        tempContext = tempCanvas.getContext("2d");
+
+                tempCanvas.width = cropWidth;
+                tempCanvas.height = cropHeight;
+
+                tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
+                var dataURL = tempCanvas.toDataURL("image/png");
+
+                document.getElementById("croppedImage").src = dataURL;
+                localStorage.setItem('playerImage', dataURL);
+
+                $("#croppedImage").show();
+                $(".cropper").hide();
+            }
+
+            function startPlayerVideo(imageFileName) {
                 if (navigator.getUserMedia) { // Standard
                     navigator.getUserMedia(videoObj, function(stream) {
                         video.src = stream;
@@ -104,20 +144,9 @@
                         video.play();
                     }, errBack);
                 }
+            }
 
-                // Trigger photo take
-                document.getElementById("snap").addEventListener("click", function() {
-                    context.drawImage(video, 0, 0, 640, 480);
-                    dataURL = canvas.toDataURL("image/png");
-                    document.getElementById('image').src = dataURL;
-                });
-
-                // Trigger crop
-                document.getElementById("cropIt").addEventListener("click", function() {
-                    cropIt("canvas");
-                });
-
-                // Prepare the cropping
+            function loadCropper(){
                 document.getElementById('image').onload = function() {
                     new Cropper(this, {
                         min_width: 250,
@@ -133,121 +162,99 @@
                         }
                     });
                 }
-            }, false);
-
-            function cropIt(canvasID) {
-                var canvas = document.getElementById(canvasID);
-                var context = canvas.getContext("2d");
-
-                context.globalCompositeOperation = "destination-over";
-                context.fillStyle = "#FFFFFF";
-                context.fillRect(0, 0, canvas.width, canvas.height);
-
-                var tempCanvas = document.createElement("canvas"),
-                    tempContext = tempCanvas.getContext("2d");
-
-                tempCanvas.width = cropWidth;
-                tempCanvas.height = cropHeight;
-
-                tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
-                var dataURL = tempCanvas.toDataURL("image/png");
-
-                document.getElementById("croppedImage").src = dataURL;
-                localStorage.setItem('playerImage', dataURL);
             }
-        }
-
-        startPlayerImage();
+        });
     </script>
-    <script>
-        var cropX = 0, cropY = 0, cropWidth = 0, cropHeight = 0;
 
-        // Put event listeners into place
-        window.addEventListener("DOMContentLoaded", function() {
-            // Grab elements, create settings, etc.
-            var canvas = document.getElementById("canvas2"),
-                context = canvas.getContext("2d"),
-                video = document.getElementById("video2"),
-                videoObj = { "video": true },
-                errBack = function(error) {
-                    console.log("Video capture error: ", error.code);
-                };
+    <!--<script>-->
+        <!--var cropX = 0, cropY = 0, cropWidth = 0, cropHeight = 0;-->
 
-            // Put video listeners into place
-            if (navigator.getUserMedia) { // Standard
-                navigator.getUserMedia(videoObj, function(stream) {
-                    video.src = stream;
-                    video.play();
-                }, errBack);
-            } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
-                navigator.webkitGetUserMedia(videoObj, function(stream) {
-                    video.src = window.webkitURL.createObjectURL(stream);
-                    video.play();
-                }, errBack);
-            } else if (navigator.mozGetUserMedia) { // WebKit-prefixed
-                navigator.mozGetUserMedia(videoObj, function(stream) {
-                    video.src = window.URL.createObjectURL(stream);
-                    video.play();
-                }, errBack);
-            }
+        <!--// Put event listeners into place-->
+        <!--window.addEventListener("DOMContentLoaded", function() {-->
+            <!--// Grab elements, create settings, etc.-->
+            <!--var canvas = document.getElementById("canvas2"),-->
+                <!--context = canvas.getContext("2d"),-->
+                <!--video = document.getElementById("video2"),-->
+                <!--videoObj = { "video": true },-->
+                <!--errBack = function(error) {-->
+                    <!--console.log("Video capture error: ", error.code);-->
+                <!--};-->
 
-            // Trigger photo take
-            document.getElementById("snap2").addEventListener("click", function() {
-                context.drawImage(video, 0, 0, 640, 480);
-                dataURL = canvas.toDataURL("image/png");
-                document.getElementById('image2').src = dataURL;
+            <!--// Put video listeners into place-->
+            <!--if (navigator.getUserMedia) { // Standard-->
+                <!--navigator.getUserMedia(videoObj, function(stream) {-->
+                    <!--video.src = stream;-->
+                    <!--video.play();-->
+                <!--}, errBack);-->
+            <!--} else if (navigator.webkitGetUserMedia) { // WebKit-prefixed-->
+                <!--navigator.webkitGetUserMedia(videoObj, function(stream) {-->
+                    <!--video.src = window.webkitURL.createObjectURL(stream);-->
+                    <!--video.play();-->
+                <!--}, errBack);-->
+            <!--} else if (navigator.mozGetUserMedia) { // WebKit-prefixed-->
+                <!--navigator.mozGetUserMedia(videoObj, function(stream) {-->
+                    <!--video.src = window.URL.createObjectURL(stream);-->
+                    <!--video.play();-->
+                <!--}, errBack);-->
+            <!--}-->
 
-            });
+            <!--// Trigger photo take-->
+            <!--document.getElementById("snap2").addEventListener("click", function() {-->
+                <!--context.drawImage(video, 0, 0, 640, 480);-->
+                <!--dataURL = canvas.toDataURL("image/png");-->
+                <!--document.getElementById('image2').src = dataURL;-->
 
-            // Trigger crop
-            document.getElementById("cropIt2").addEventListener("click", function() { cropIt2("canvas2") });
+            <!--});-->
 
-            // Prepare the cropping
-            document.getElementById('image2').onload = function() {
-                new Cropper(this, {
-                    min_width: 100,
-                    min_height: 100,
-                    max_width: 250,
-                    max_height: 250,
-                    ratio: { width: 1, height: 1 },
-                    update: function(coordinates) {
-                        cropX = coordinates.x;
-                        cropY = coordinates.y
-                        cropWidth = coordinates.width;
-                        cropHeight = coordinates.height;
-                    }
-                });
-            }
-        }, false);
+            <!--// Trigger crop-->
+            <!--document.getElementById("cropIt2").addEventListener("click", function() { cropIt2("canvas2") });-->
 
-        function cropIt2(canvasID) {
-            var canvas = document.getElementById(canvasID);
-            // canvas context
-            var context = canvas.getContext("2d");
-            // get the current ImageData for the canvas
-            var data = context.getImageData(0, 0, canvas.width, canvas.height);
-            // store the current globalCompositeOperation
-            var compositeOperation = context.globalCompositeOperation;
-            // set to draw behind current content
-            context.globalCompositeOperation = "destination-over";
-            //set background color
-            context.fillStyle = "#FFFFFF";
-            // draw background/rectangle on entire canvas
-            context.fillRect(0, 0, canvas.width, canvas.height);
+            <!--// Prepare the cropping-->
+            <!--document.getElementById('image2').onload = function() {-->
+                <!--new Cropper(this, {-->
+                    <!--min_width: 100,-->
+                    <!--min_height: 100,-->
+                    <!--max_width: 250,-->
+                    <!--max_height: 250,-->
+                    <!--ratio: { width: 1, height: 1 },-->
+                    <!--update: function(coordinates) {-->
+                        <!--cropX = coordinates.x;-->
+                        <!--cropY = coordinates.y-->
+                        <!--cropWidth = coordinates.width;-->
+                        <!--cropHeight = coordinates.height;-->
+                    <!--}-->
+                <!--});-->
+            <!--}-->
+        <!--}, false);-->
 
-            var tempCanvas = document.createElement("canvas"),
-                tempContext = tempCanvas.getContext("2d");
+        <!--function cropIt2(canvasID) {-->
+            <!--var canvas = document.getElementById(canvasID);-->
+            <!--// canvas context-->
+            <!--var context = canvas.getContext("2d");-->
+            <!--// get the current ImageData for the canvas-->
+            <!--var data = context.getImageData(0, 0, canvas.width, canvas.height);-->
+            <!--// store the current globalCompositeOperation-->
+            <!--var compositeOperation = context.globalCompositeOperation;-->
+            <!--// set to draw behind current content-->
+            <!--context.globalCompositeOperation = "destination-over";-->
+            <!--//set background color-->
+            <!--context.fillStyle = "#FFFFFF";-->
+            <!--// draw background/rectangle on entire canvas-->
+            <!--context.fillRect(0, 0, canvas.width, canvas.height);-->
 
-            tempCanvas.width = cropWidth;
-            tempCanvas.height = cropHeight;
+            <!--var tempCanvas = document.createElement("canvas"),-->
+                <!--tempContext = tempCanvas.getContext("2d");-->
 
-            tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
-            dataURL = tempCanvas.toDataURL("image/png");
+            <!--tempCanvas.width = cropWidth;-->
+            <!--tempCanvas.height = cropHeight;-->
 
-            //return dataURL;
-            document.getElementById("croppedImage2").src = dataURL;
-            localStorage.setItem('enemyImage', dataURL)
-        }
-    </script>
+            <!--tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);-->
+            <!--dataURL = tempCanvas.toDataURL("image/png");-->
+
+            <!--//return dataURL;-->
+            <!--document.getElementById("croppedImage2").src = dataURL;-->
+            <!--localStorage.setItem('enemyImage', dataURL)-->
+        <!--}-->
+    <!--</script>-->
 </body>
 </html>
