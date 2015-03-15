@@ -29,9 +29,19 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6745562" vertical-offset="3230" max-vertical-offset="4150">
-              <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.40946746" vertical-offset="704" max-vertical-offset="1725">
+              <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
+              <folding>
+                <element signature="e#1303#1704#0" expanded="false" />
+                <element signature="e#1755#2492#0" expanded="false" />
+                <element signature="e#2543#3241#0" expanded="false" />
+                <element signature="e#3285#3707#0" expanded="false" />
+                <element signature="e#3800#3985#0" expanded="false" />
+                <element signature="e#4042#4117#0" expanded="false" />
+                <element signature="e#4175#4965#0" expanded="false" />
+                <element signature="e#5159#5283#0" expanded="false" />
+                <element signature="e#5353#5839#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -263,7 +273,9 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -271,7 +283,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4125">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1303#1704#0" expanded="false" />
+            <element signature="e#1755#2492#0" expanded="false" />
+            <element signature="e#2543#3241#0" expanded="false" />
+            <element signature="e#3285#3707#0" expanded="false" />
+            <element signature="e#3800#3985#0" expanded="false" />
+            <element signature="e#4042#4117#0" expanded="false" />
+            <element signature="e#4175#4965#0" expanded="false" />
+            <element signature="e#5159#5283#0" expanded="false" />
+            <element signature="e#5353#5839#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -315,9 +337,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6745562" vertical-offset="3230" max-vertical-offset="4150">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.40946746" vertical-offset="704" max-vertical-offset="1725">
+          <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
+          <folding>
+            <element signature="e#1303#1704#0" expanded="false" />
+            <element signature="e#1755#2492#0" expanded="false" />
+            <element signature="e#2543#3241#0" expanded="false" />
+            <element signature="e#3285#3707#0" expanded="false" />
+            <element signature="e#3800#3985#0" expanded="false" />
+            <element signature="e#4042#4117#0" expanded="false" />
+            <element signature="e#4175#4965#0" expanded="false" />
+            <element signature="e#5159#5283#0" expanded="false" />
+            <element signature="e#5353#5839#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
