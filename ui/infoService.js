@@ -13,7 +13,7 @@
             road: 'road.png',
             divider: 'divider.png',
             victoryZone: 'victoryZone.png',
-            defaultPath: 'images/'
+            defaultPath: 'web/game/images/'
 
         };
 

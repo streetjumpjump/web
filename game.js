@@ -2,8 +2,9 @@
     'use strict';
 
     var app = angular.module('frogger');
-
+    console.log('out');
     app.controller('Game', ['infoService', function(infoService) {
+        console.log('in');
         var vm = this;
 
         vm.info = infoService;
