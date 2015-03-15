@@ -141,6 +141,7 @@
                 function generateEnemies(stage) {
                     var enemies = [];
 
+
                     for (var i = 0; i < 5; i++) {
                         enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
                     }
@@ -148,7 +149,7 @@
                     enemies.forEach(function(enemy, index) {
                         enemy.p.x = getRandomNumber(0, 250);
                         enemy.p.y = 62 + (index * 25);
-                        enemy.p.vx = 30;
+                        enemy.p.vx = getRandomNumber(0, 1) ? -30 : 30;
                     });
                 }
 
