@@ -22,10 +22,13 @@
 
                 vm.info = infoService;
 
+                function getRandomNumber(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+
                 var Q = Quintus({
                     development: true
-                })
-                    .include("Scenes, Sprites, Input, 2D, Touch, UI")
+                }).include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
                     .controls(true)
                     .touch();
@@ -36,7 +39,7 @@
                 Q.Sprite.extend("Player", {
                     init: function(p) {
                         this._super({
-                            asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
+                            asset: 'local',
                             w: 25,
                             h: 25,
                             x: 100 + 12.5,
@@ -44,12 +47,6 @@
                         });
 
                         this.add("2d, stepControls");
-
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                            if (collision.obj.isA("VictoryZone")) {
-                                Q.stageScene("endGame",1, { label: "You Win!" });
-                            }
-                        });
                     }
                 });
 
@@ -62,6 +59,13 @@
                             x: 125,
                             y: 12.5
                         });
+
+                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                            if (collision.obj.isA("Player")) {
+                                Q.stageScene("endGame",1, { label: "You Win!" });
+                                collision.obj.destroy();
+                            }
+                        });
                     }
                 });
 
@@ -70,8 +74,7 @@
                         this._super({
                             asset: infoService.defaultPath + infoService.enemy,
                             w: 25,
-                            h: 25,
-                            vx: -30
+                            h: 25
                         });
 
                         this.add('2d');
@@ -100,20 +103,10 @@
 
                 function start() {
                     Q.scene("level1", function(stage) {
-                        var player = stage.insert(new Q.Player());
-
+                        stage.insert(new Q.Player());
                         stage.insert(new Q.VictoryZone());
 
-                        var enemies = [];
-
-                        for (var i = 0; i < 5; i++) {
-                            enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
-                        }
-
-                        enemies.forEach(function(enemy, index) {
-                            enemy.p.x = 100 + (index * 30);
-                            enemy.p.y = 62 + (index * 25);
-                        });
+                        generateEnemies(stage);
                     });
 
                     Q.scene("roads", function(stage) {
@@ -139,9 +132,23 @@
                         box.fit(20);
                     });
 
-                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
+                    Q.load([ infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, 'local'], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene("level1", 1);
+                    });
+                }
+
+                function generateEnemies(stage) {
+                    var enemies = [];
+
+                    for (var i = 0; i < 5; i++) {
+                        enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
+                    }
+
+                    enemies.forEach(function(enemy, index) {
+                        enemy.p.x = getRandomNumber(0, 250);
+                        enemy.p.y = 62 + (index * 25);
+                        enemy.p.vx = 30;
                     });
                 }
 
