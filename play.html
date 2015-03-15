@@ -2,6 +2,8 @@
 <head>
     <link href="game/bootstrap.css" rel="stylesheet" />
     <script src="game/angular.js"></script>
+    <script src="game/firebase.js"></script>
+    <script src="game/angularfire.min.js"></script>
     <script src="game/Quintus.js"></script>
     <script src="ui/app.js"></script>
     <script src="ui/infoService.js"></script>
@@ -10,13 +12,11 @@
 </head>
 <body>
     <main style="padding: 12px;">
-        <h2>Create your own Street Jump Jump!</h2>
 
         <section ng-controller="Game as game">
             <div>
                 <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
                 <button id="ResetPics" class="btn" style="display: block; margin: 9px auto">Reset To Normal</button>
-                <button id="Cheat" class="btn" style="display: block; margin: 9px auto">Cheat</button>
             </div>
             <script src="game.js"></script>
         </section>

@@ -3,9 +3,11 @@
 
     var app = angular.module('frogger');
 
-    app.controller('Game', ['infoService', function(infoService) {
-        var vm = this;
+    app.controller('Game', ['infoService', '$scope', '$firebaseObject', function(infoService, $scope, $firebaseObject) {
+        var ref = new Firebase("https://streep-jump-jump.firebaseio.com/");
+        $scope.data = $firebaseObject(ref);
 
+        var vm = this;
         vm.info = infoService;
 
         var levelCounter = 1;
@@ -39,6 +41,8 @@
                 });
 
                 this.add("2d, stepControls, animation");
+                Q.input.on("fire", this, "cheat");
+
             },
             step: function(dt) {
                 if (this.p.y > 750) {
@@ -53,6 +57,9 @@
                 } else if (this.p.x > 950) {
                     this.p.x = 950;
                 }
+            },
+            cheat: function (dt) {
+                    startNextLevel();                
             }
         });
 
@@ -255,11 +262,6 @@
 
         document.getElementById("ResetPics").addEventListener("click", function() {
             resetPics();
-        });
-
-        document.getElementById("Cheat").addEventListener("click", function() {
-            levelCounter = levelCounter++;
-            startNextLevel();
         });
 
         start();
