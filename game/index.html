@@ -22,6 +22,8 @@
 
                 vm.info = infoService;
 
+                var levelCounter = 1;
+
                 function getRandomNumber(min, max) {
                     return Math.floor(Math.random() * (max - min + 1)) + min;
                 }
@@ -123,16 +125,10 @@
                 Q.UI.Text.extend("Hud", {
                     init: function(p) {
                         this._super({
-                            label: "Level: 0", // increments before we start
-                            x: 0,
+                            label: "Level: " + (levelCounter++).toString(), 
+                            x: 50,
                             y: 780
                         });
-
-                        Q.state.on("change.level", this, "level");
-                    },
-
-                    level: function(level) {
-                        this.p.label = "level: " + level;
                     }
                 });
 
@@ -148,18 +144,16 @@
                     });
 
                     Q.scene('hud', function(stage) {
-                        var levelLabel = stage.insert(new Q.UI.Text({
-                            x: 100, y: 500, h: 25, w: 100,
-                            levelLabel: Q.state.get("level"), color: "#fff"
-                        }));
+                        stage.insert(new Q.Hud());
                     })
+
                     Q.scene('endGame', function (stage) {
                         var box = stage.insert(new Q.UI.Container({
                             x: Q.width / 2, y: Q.height / 2, fill: "rgba(0,0,0,0.5)"
                         }));
 
                         var button = box.insert(new Q.UI.Button({
-                            x: 0, y: 0, fill: "#336699",
+                            x: 0, y: 0, fill: "#369",
                             label: "Play Again"
                         }));
                         var label = box.insert(new Q.UI.Text({
@@ -172,6 +166,7 @@
                             Q.clearStages();
                             Q.stageScene("roads", 0);
                             Q.stageScene('level1', 1);
+                            Q.stageScene('hud', 2, { label: levelCounter });
                         });
 
                         box.fit(20);
@@ -181,10 +176,10 @@
                     Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         Q.stageScene("roads", 0);
                         Q.stageScene('level1', 1);
-
-                        Q.state.inc("level", 1);
-                        Q.stageScene('hud', 2, { levelLabel: Q.state.get("level") });
+                        Q.stageScene('hud', 2, { label: levelCounter });
                     });
+
+                    
                 }
 
                 function generateEnemies(stage) {
