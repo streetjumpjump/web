@@ -70,10 +70,8 @@
                         this._super({
                             asset: infoService.enemy,
                             w: 25,
-                            h: 25
-                            //x: 200,
-                            //y: 75 - 12.5,
-                            //vx: -30
+                            h: 25,
+                            vx: -30
                         });
 
                         this.add('2d');
@@ -102,10 +100,20 @@
 
                 function start() {
                     Q.scene("level1", function(stage) {
-                        stage.insert(new Q.Player());
+                        var player = stage.insert(new Q.Player());
+
                         stage.insert(new Q.VictoryZone());
-                        stage.insert(new Q.Enemy({ x: 50, y: 50 }));
-                        stage.insert(new Q.Enemy({ x: 150, y: 150 }));
+
+                        var enemies = [];
+
+                        for (var i = 0; i < 5; i++) {
+                            enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
+                        }
+
+                        enemies.forEach(function(enemy, index) {
+                            enemy.p.x = 100 + (index * 30);
+                            enemy.p.y = 62 + (index * 25);
+                        });
                     });
 
                     Q.scene("roads", function(stage) {
