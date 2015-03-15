@@ -130,12 +130,8 @@
                     init: function(p) {
                         this._super({
                             label: "Level: " + (levelCounter++).toString(),
-<<<<<<< HEAD
-                            x: 50,
-=======
                             color: "white",
                             x: 70,
->>>>>>> origin/master
                             y: 780
                         });
                     }
@@ -208,17 +204,9 @@
 
                     });
 
-<<<<<<< HEAD
-                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
-                        Q.stageScene("roads", 0);
-                        Q.stageScene('level1', 1);
-                        Q.stageScene('hud', 2, { label: levelCounter });
-=======
                     Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         resetBoard();
->>>>>>> origin/master
                     });
-
 
                 }
 
