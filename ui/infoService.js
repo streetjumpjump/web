@@ -6,8 +6,8 @@
     app.factory('infoService', [function() {
         var infoService = {
             title: 'Sample title',
-            player: 'player2.png',
-            enemy: 'enemy.png',
+            player: 'RunningFrog.png',
+            enemy: 'Truck.png',
             safeZone: 'safeZone.png',
             road: 'road.png',
             divider: 'divider.png',
