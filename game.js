@@ -2,9 +2,8 @@
     'use strict';
 
     var app = angular.module('frogger');
-    console.log('out');
+
     app.controller('Game', ['infoService', function(infoService) {
-        console.log('in');
         var vm = this;
 
         vm.info = infoService;
@@ -17,7 +16,7 @@
 
         var Q = Quintus({
             development: true
-        }).include("Scenes, Sprites, 2D, UI, Input, Touch")
+        }).include("Scenes, Sprites, 2D, UI, Input, Touch, Anim")
                 .setup("quintus")
                 .controls(true)
                 .touch();
@@ -45,14 +44,8 @@
                 if (this.p.y > 750) {
                     this.p.y = 750;
                 } else if (this.p.y < 200) {
-
-                    if (this.p.asset !== infoService.defaultPath + infoService.happyPlayer) {
-                        Q.stageScene("nextLevel", 2, { label: "Next Level" });
-                        this.p.asset = infoService.defaultPath + infoService.happyPlayer;
-                        console.log('this: ', this);
-                        console.log('player: ', Q('player'));
-                        this.p.animate({ angle: 360 }, 100);
-                    }
+                    this.destroy();
+                    Q.stageScene('anim', 3);
                 }
 
                 if (this.p.x < 50) {
@@ -60,6 +53,16 @@
                 } else if (this.p.x > 950) {
                     this.p.x = 950;
                 }
+            }
+        });
+
+        Q.Sprite.extend("HappyFrog", {
+            init: function(p) {
+                this._super({
+                    asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.happyPlayer,
+                    w: 100,
+                    h: 100,
+                });
             }
         });
 
@@ -128,8 +131,6 @@
         function start() {
             Q.scene("level1", function(stage) {
                 var player = stage.insert(new Q.Player());
-
-                player.add("tween");
                 generateEnemies(stage);
             });
 
@@ -186,6 +187,21 @@
 
                 box.fit(20);
 
+
+            });
+
+
+
+
+            Q.scene('anim', function(stage) {
+                var happyFrog = new Q.HappyFrog({ x: 400, y: 175 });
+                happyFrog.add("tween");
+                stage.insert(happyFrog);
+                happyFrog.animate({ angle: 720, x: 450, y: 750 }, 2.5, Q.Easing.Quadratic.InOut, {
+                    callback: function() {
+                        startNextLevel();
+                    }
+                });
             });
 
             Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
