@@ -3,10 +3,7 @@
 
     var app = angular.module('frogger');
 
-    app.controller('Game', ['infoService', '$scope', '$firebaseObject', function(infoService, $scope, $firebaseObject) {
-        var ref = new Firebase("https://streep-jump-jump.firebaseio.com/");
-        $scope.data = $firebaseObject(ref);
-
+    app.controller('Game', ['infoService', '$scope', '$firebaseObject', '$firebaseArray', function(infoService, $scope, $firebaseObject, $firebaseArray) {
         var vm = this;
         vm.info = infoService;
 
@@ -266,7 +263,28 @@
 
         start();
 
+
+        var fireBase = new Firebase("https://streep-jump-jump.firebaseio.com/");
+        $scope.data = $firebaseObject(fireBase);
+
+        fireBase.authAnonymously(function(error, authData) {
+            if (authData) {
+                var userData = {
+                    authData: authData,
+                    userData: {
+                        userName: 'Anon',
+                        groupName: ''
+                    }
+                };
+
+                var usersRef = fireBase.child('/users/' + authData.uid);
+                usersRef.set(userData);              // Save user data
+                usersRef.onDisconnect().remove();    // Delete user data on end of session
+            } else {
+                console.log('Login Failed!', error);
+            }
+        });
+
+        $scope.messages = $firebaseArray(fireBase);
     }]);
-
-
 })();
