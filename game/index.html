@@ -10,7 +10,7 @@
 </head>
 <body>
     <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
-
+    <button id="ResetPics">Reset To Normal</button>
     <script>
         (function () {
             'use strict';
@@ -45,7 +45,7 @@
                             x: 400 + 50,
                             y: 700 + 50,
                             stepDistance: 100, // should be tile size
-                            stepDelay: 0.35  // seconds to delay before next step
+                            stepDelay: 0.2  // seconds to delay before next step
                         });
 
                         this.add("2d, stepControls");
@@ -189,7 +189,7 @@
 
                 function generateEnemies(stage) {
                     var enemies = [];
-                    var currentLevel = 5;  // change to pull from game state
+                    var currentLevel = 3;  // change to pull from game state
                     var minSpeed = 150 + (currentLevel * 60);
                     var maxSpeed = minSpeed + 100;
 
@@ -209,9 +209,35 @@
                     });
                 }
 
+                function resetPics() {
+                    if (localStorage.enemyImage) {
+                        localStorage.removeItem("enemyImage");
+                    }
+                    if (localStorage.playerImage) {
+                        localStorage.removeItem("playerImage");
+                    }
+
+                    resetBoard();
+                }
+
+                function resetBoard() {
+                    Q.clearStages();
+                    Q.stageScene("roads", 0);
+                    Q.stageScene('level1', 1);
+                }
+
+                document.getElementById("ResetPics").addEventListener("click", function () {
+                    resetPics();
+                });
+
                 start();
+
             }]);
+
+            
         })();
+
+        
     </script>
 </body>
 </html>
