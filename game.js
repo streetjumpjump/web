@@ -40,6 +40,8 @@
                 });
 
                 this.add("2d, stepControls");
+
+                Q.input.on("fire", this, "cheat");
             },
             step: function(dt) {
                 if (this.p.y > 750) {
@@ -57,6 +59,9 @@
                 } else if (this.p.x > 950) {
                     this.p.x = 950;
                 }
+            },
+            cheat: function (dt) {
+                    startNextLevel();                
             }
         });
 
@@ -234,11 +239,6 @@
 
         document.getElementById("ResetPics").addEventListener("click", function() {
             resetPics();
-        });
-
-        document.getElementById("Cheat").addEventListener("click", function() {
-            levelCounter = levelCounter++;
-            startNextLevel();
         });
 
         start();
