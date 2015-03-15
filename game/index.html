@@ -132,7 +132,7 @@
                         box.fit(20);
                     });
 
-                    Q.load([ infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, 'local'], function() {
+                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene("level1", 1);
                     });
@@ -143,13 +143,13 @@
 
 
                     for (var i = 0; i < 5; i++) {
-                        enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
+                        enemies.push(stage.insert(new Q.Enemy()));
                     }
 
                     enemies.forEach(function(enemy, index) {
-                        enemy.p.x = getRandomNumber(0, 250);
-                        enemy.p.y = 62 + (index * 25);
-                        enemy.p.vx = getRandomNumber(0, 1) ? -30 : 30;
+                        enemy.p.x = getRandomNumber(0, 1000);
+                        enemy.p.y = 248 + (index * 100);
+                        enemy.p.vx = getRandomNumber(0, 1) ? -120 : 120;
                     });
                 }
 
