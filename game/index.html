@@ -39,7 +39,8 @@
 
                 Q.gravityX = 0;
                 Q.gravityY = 0;
-                Q.input.disableTouchControls();
+
+                Q.input.keypad.controls = [];
 
                 Q.Sprite.extend("Player", {
                     init: function(p) {
@@ -54,7 +55,6 @@
                         });
 
                         this.add("2d, stepControls");
-
                     },
                     step: function(dt) {
                         if (this.p.y > 750) {
@@ -201,7 +201,6 @@
                     Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         resetBoard();
                     });
-
                 }
 
                 function startNextLevel() {
