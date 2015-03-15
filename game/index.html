@@ -33,7 +33,7 @@
 
                 var Q = Quintus({
                     development: true
-                }).include("Scenes, Sprites, 2D, UI, Input, Touch")
+                }).include("Scenes, Sprites, 2D, UI, Input, Touch, Anim")
                         .setup("quintus")
                         .controls(true)
                         .touch();
@@ -44,7 +44,7 @@
                 Q.input.keypad.controls = [];
 
                 Q.Sprite.extend("Player", {
-                    init: function(p) {
+                    init: function (p) {
                         this._super({
                             asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player,
                             w: 100,
@@ -55,9 +55,9 @@
                             stepDelay: 0.2  // seconds to delay before next step
                         });
 
-                        this.add("2d, stepControls");
+                        this.add("2d, stepControls, animation");
                     },
-                    step: function(dt) {
+                    step: function (dt) {
                         if (this.p.y > 750) {
                             this.p.y = 750;
                         } else if (this.p.y < 200) {
@@ -75,6 +75,8 @@
                         }
                     }
                 });
+
+                
 
                 Q.Sprite.extend("VictoryZone", {
                     init: function(p) {
