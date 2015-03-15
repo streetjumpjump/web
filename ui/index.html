@@ -97,7 +97,7 @@
                         video.src = window.webkitURL.createObjectURL(stream);
                         video.play();
                     }, errBack);
-                } else if (navigator.mozGetUserMedia) { // WebKit-prefixed
+                } else if (navigator.mozGetUserMedia) { // Moz-prefixed
                     navigator.mozGetUserMedia(videoObj, function(stream) {
                         video.src = window.URL.createObjectURL(stream);
                         video.play();
@@ -112,13 +112,15 @@
                 });
 
                 // Trigger crop
-                document.getElementById("cropIt").addEventListener("click", function() { cropIt("canvas") });
+                document.getElementById("cropIt").addEventListener("click", function() {
+                    cropIt("canvas");
+                });
 
                 // Prepare the cropping
                 document.getElementById('image').onload = function() {
                     new Cropper(this, {
-                        min_width: 100,
-                        min_height: 100,
+                        min_width: 250,
+                        min_height: 250,
                         max_width: 250,
                         max_height: 250,
                         ratio: { width: 1, height: 1 },
@@ -134,31 +136,23 @@
 
             function cropIt(canvasID) {
                 var canvas = document.getElementById(canvasID);
-                // canvas context
                 var context = canvas.getContext("2d");
-                // get the current ImageData for the canvas
-                var data = context.getImageData(0, 0, canvas.width, canvas.height);
-                // store the current globalCompositeOperation
-                var compositeOperation = context.globalCompositeOperation;
-                // set to draw behind current content
+
                 context.globalCompositeOperation = "destination-over";
-                //set background color
                 context.fillStyle = "#FFFFFF";
-                // draw background/rectangle on entire canvas
                 context.fillRect(0, 0, canvas.width, canvas.height);
 
                 var tempCanvas = document.createElement("canvas"),
-                        tempContext = tempCanvas.getContext("2d");
+                    tempContext = tempCanvas.getContext("2d");
 
                 tempCanvas.width = cropWidth;
                 tempCanvas.height = cropHeight;
 
                 tempContext.drawImage(canvas, cropX, cropY, cropWidth, cropHeight, 0, 0, 100, 100);
-                dataURL = tempCanvas.toDataURL("image/png");
+                var dataURL = tempCanvas.toDataURL("image/png");
 
-                //return dataURL;
                 document.getElementById("croppedImage").src = dataURL;
-                localStorage.setItem('playerImage', dataURL)
+                localStorage.setItem('playerImage', dataURL);
             }
         }
 
