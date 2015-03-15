@@ -46,7 +46,7 @@
                     this.p.y = 750;
                 } else if (this.p.y < 200) {
                     this.destroy();
-                    Q.stageScene('anim', 3);
+                    Q.stageScene('happy', 3);
                 }
 
                 if (this.p.x < 50) {
@@ -64,6 +64,16 @@
             init: function(p) {
                 this._super({
                     asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.happyPlayer,
+                    w: 100,
+                    h: 100,
+                });
+            }
+        });
+
+        Q.Sprite.extend("SadFrog", {
+            init: function(p) {
+                this._super({
+                    asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.sadPlayer,
                     w: 100,
                     h: 100,
                 });
@@ -94,8 +104,7 @@
 
                 this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                     if (collision.obj.isA("Player")) {
-                        Q.stageScene("endGame", 2, { label: "You Died.  You Can't Die In A DEMO!" });
-                        collision.obj.destroy();
+                        Q.stageScene('sad', 3);
                     }
                 });
             },
@@ -197,7 +206,7 @@
 
 
 
-            Q.scene('anim', function(stage) {
+            Q.scene('happy', function(stage) {
                 var happyFrog = new Q.HappyFrog({ x: 400, y: 175 });
                 happyFrog.add("tween");
                 stage.insert(happyFrog);
@@ -208,7 +217,21 @@
                 });
             });
 
-            Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
+            Q.scene('sad', function(stage) {
+                var sadFrog = new Q.SadFrog({ x: 400, y: 175 });
+                sadFrog.add("tween");
+                stage.insert(sadFrog);
+                sadFrog.animate({ angle: 180, x: 10, y: 400 }, .7, Q.Easing.Quadratic.InOut)
+                    .chain({ angle: 360, x: 500, y: 10 }, .7, Q.Easing.Quadratic.InOut)
+                    .chain({ angle: 540, x: 990, y: 400 }, .7, Q.Easing.Quadratic.InOut)
+                    .chain({ angle: 720, x: 450, y: 750 }, .7, Q.Easing.Quadratic.InOut, {
+                    callback: function() {
+                        start();
+                    }
+                });
+            });
+
+            Q.load([infoService.defaultPath + infoService.sadPlayer, infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
                 resetBoard();
             });
         }
