@@ -38,7 +38,6 @@
                     <button ng-click="home.showGame()">Next</button>
                 </div>
             </div>
-
         </section>
     </main>
 
@@ -63,7 +62,7 @@
             });
 
             $(".crop").on("click", function() {
-                cropPhoto({ canvasID: "canvas", enemy: false });
+                cropPhoto({ enemy: false });
             });
 
             $(".snapEnemy").on("click", function() {
@@ -71,7 +70,7 @@
             });
 
             $(".cropEnemy").on("click", function() {
-                cropPhoto({ canvasID: "canvas", enemy: true });
+                cropPhoto({ enemy: true });
             });
 
             function takePicture() {
@@ -83,15 +82,12 @@
             }
 
             function cropPhoto(options) {
-                var canvas = document.getElementById(options.canvasID);
-                var context = canvas.getContext("2d");
-
                 context.globalCompositeOperation = "destination-over";
                 context.fillStyle = "#FFFFFF";
                 context.fillRect(0, 0, canvas.width, canvas.height);
 
                 var tempCanvas = document.createElement("canvas"),
-                        tempContext = tempCanvas.getContext("2d");
+                    tempContext = tempCanvas.getContext("2d");
 
                 tempCanvas.width = cropWidth;
                 tempCanvas.height = cropHeight;
