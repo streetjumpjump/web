@@ -52,7 +52,7 @@
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("VictoryZone")) {
-                                Q.stageScene("endGame", 1, { label: "You Win!" });
+                                Q.stageScene("endGame", 2, { label: "You Win!" });
                                 collision.obj.destroy();
                             }
                         });
@@ -83,7 +83,7 @@
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame", 1, { label: "You Died" });
+                                Q.stageScene("endGame", 2, { label: "You Died" });
                                 collision.obj.destroy();
                             }
                         });
@@ -110,6 +110,22 @@
                     }
                 });
 
+                Q.UI.Text.extend("Hud", {
+                    init: function(p) {
+                        this._super({
+                            label: "Level: 0", // increments before we start
+                            x: 0,
+                            y: 780
+                        });
+
+                        Q.state.on("change.level", this, "level");
+                    },
+
+                    level: function(level) {
+                        this.p.label = "level: " + level;
+                    }
+                });
+
                 function start() {
                     Q.scene("level1", function(stage) {
                         stage.insert(new Q.Player());
@@ -120,6 +136,13 @@
                     Q.scene("roads", function(stage) {
                         stage.insert(new Q.Road());
                     });
+
+                    Q.scene('hud', function(stage) {
+                        var levelLabel = stage.insert(new Q.UI.Text({
+                            x: 100, y: 500, h: 25, w: 100,
+                            levelLabel: Q.state.get("level"), color: "#fff"
+                        }));
+                    })
 
                     Q.scene('endGame', function(stage) {
                         var box = stage.insert(new Q.UI.Container({
@@ -151,6 +174,9 @@
                     Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene('level1', 1);
+
+                        Q.state.inc("level", 1);
+                        Q.stageScene('hud', 2, { levelLabel: Q.state.get("level") });
                     });
                 }
 
