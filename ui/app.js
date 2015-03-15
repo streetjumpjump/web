@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
 
-    var app = angular.module('frogger', []);
+    var app = angular.module('frogger', ['firebase']);
     
     app.controller('frogger', ['infoService', '$location', function(infoService, $location) {
         var vm = this;
