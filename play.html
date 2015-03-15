@@ -7,7 +7,7 @@
     <script src="game/Quintus.js"></script>
     <script src="ui/app.js"></script>
     <script src="ui/infoService.js"></script>
-    <script src="game.js?v=1"></script>
+    <script src="game.js?v=2"></script>
     <title>{{ home.pageTitle }}</title>
 </head>
 <body>
@@ -18,14 +18,17 @@
                 <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
                 <h4 style="text-align: center;">Active Users: {{messages.length}}</h4>
                 <div class="row">
-                    <div class="col-md-4"></div>
+                    <div class="col-md-3"></div>
                     <div class="col-md-2">
                         <button id="ResetPics" class="btn" style="display: inline-block; margin-right: 5px;">Reset To Normal</button>
                     </div>
                     <div class="col-md-2">
                         <button ng-click="home.showTitle()" class="btn" style="display: inline-block;">Create Your Own Game!</button>
                     </div>
-                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <h4 style="text-align: center;">Community High Score: {{highScore.$value}}</h4>
+                    </div>
+                    <div class="col-md-3"></div>
                 </div>
             </div>
         </section>
