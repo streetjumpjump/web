@@ -9,153 +9,160 @@
     <title>{{ game.info.title }}</title>
 </head>
 <body>
-    <canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
+<canvas id="quintus" width="1000" height="800" style="background-color: #EEE;"></canvas>
 
-    <script>
-        (function() {
-            'use strict';
+<script>
+    (function() {
+        'use strict';
 
-            var app = angular.module('frogger');
+        var app = angular.module('frogger');
 
-            app.controller('Game', ['infoService', function(infoService) {
-                var vm = this;
+        app.controller('Game', ['infoService', function(infoService) {
+            var vm = this;
 
-                vm.info = infoService;
+            vm.info = infoService;
 
-                function getRandomNumber(min, max) {
-                    return Math.floor(Math.random() * (max - min + 1)) + min;
-                }
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
 
-                var Q = Quintus({
-                    development: true
-                }).include("Scenes, Sprites, Input, 2D, Touch, UI")
+            var Q = Quintus({
+                development: true
+            }).include("Scenes, Sprites, Input, 2D, Touch, UI")
                     .setup("quintus")
                     .controls(true)
                     .touch();
 
-                Q.gravityX = 0;
-                Q.gravityY = 0;
+            Q.gravityX = 0;
+            Q.gravityY = 0;
 
-                Q.Sprite.extend("Player", {
-                    init: function(p) {
-                        this._super({
-                            asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
-                            w: 100,
-                            h: 100,
-                            x: 400 + 50,
-                            y: 700 + 50,
-                            stepDistance: 100, // should be tile size
-                            stepDelay: 0.35  // seconds to delay before next step
-                        });
-
-                        this.add("2d, stepControls");
-
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                            if (collision.obj.isA("VictoryZone")) {
-                                Q.stageScene("endGame",1, { label: "You Win!" });
-                                collision.obj.destroy();
-                            }
-                        });
-                    }
-                });
-
-                Q.Sprite.extend("VictoryZone", {
-                    init: function(p) {
-                        this._super({
-                            asset: infoService.defaultPath + infoService.victoryZone,
-                            w: 1000,
-                            h: 100,
-                            x: 500,
-                            y: 50
-                        });
-                    }
-                });
-
-                Q.MovingSprite.extend("Enemy", {
-                    init: function() {
-                        this._super({
-                            asset: infoService.defaultPath + infoService.enemy,
-                            w: 100,
-                            h: 100,
-                            vx: -120
-                        });
-
-                        this.add('2d');
-
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                            if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame",1, { label: "You Died" });
-                                collision.obj.destroy();
-                            }
-                        });
-                    }
-                });
-
-                Q.Sprite.extend("Road", {
-                    init: function() {
-                        this._super({
-                            asset: infoService.defaultPath + infoService.road,
-                            w: 1000,
-                            h: 600,
-                            x: 500,
-                            y: 500
-                        });
-                    }
-                });
-
-                function start() {
-                    Q.scene("level1", function(stage) {
-                        stage.insert(new Q.Player());
-                        stage.insert(new Q.VictoryZone());
-                        generateEnemies(stage);
+            Q.Sprite.extend("Player", {
+                init: function(p) {
+                    this._super({
+                        asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
+                        w: 100,
+                        h: 100,
+                        x: 400 + 50,
+                        y: 700 + 50,
+                        stepDistance: 100, // should be tile size
+                        stepDelay: 0.35  // seconds to delay before next step
                     });
 
-                    Q.scene("roads", function(stage) {
-                        stage.insert(new Q.Road());
+                    this.add("2d, stepControls");
+
+                    this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                        if (collision.obj.isA("VictoryZone")) {
+                            Q.stageScene("endGame",1, { label: "You Win!" });
+                            collision.obj.destroy();
+                        }
+                    });
+                }
+            });
+
+            Q.Sprite.extend("VictoryZone", {
+                init: function(p) {
+                    this._super({
+                        asset: infoService.defaultPath + infoService.victoryZone,
+                        w: 1000,
+                        h: 200,
+                        x: 500,
+                        y: 100
+                    });
+                }
+            });
+
+            Q.MovingSprite.extend("Enemy", {
+                init: function() {
+                    this._super({
+                        asset: infoService.defaultPath + infoService.enemy,
+                        w: 100,
+                        h: 89
                     });
 
-                    Q.scene('endGame',function(stage) {
-                        var box = stage.insert(new Q.UI.Container({
-                            x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
-                        }));
+                    this.add('2d');
 
-                        var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#336699",
-                            label: "Play Again" }));
-                        var label = box.insert(new Q.UI.Text({x:40, y: -40 - button.p.h,
-                            label: stage.options.label, color: "#fff" }));
-
-                        button.on("click",function() {
-                            Q.clearStages();
-                            Q.stageScene("roads", 0);
-                            Q.stageScene('level1', 1);
-                        });
-
-                        box.fit(20);
+                    this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                        if (collision.obj.isA("Player")) {
+                            Q.stageScene("endGame", 1, { label: "You Died" });
+                            collision.obj.destroy();
+                        }
                     });
+                },
 
-                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
+                step: function (dt) {
+                    if (this.p.x < -50) {
+                        this.p.x = 1050;
+                    } else if (this.p.x > 1050) {
+                        this.p.x = -50;
+                    }
+                }
+            });
+
+            Q.Sprite.extend("Road", {
+                init: function() {
+                    this._super({
+                        asset: infoService.defaultPath + infoService.road,
+                        w: 1000,
+                        h: 600,
+                        x: 500,
+                        y: 500
+                    });
+                }
+            });
+
+            function start() {
+                Q.scene("level1", function(stage) {
+                    stage.insert(new Q.Player());
+                    stage.insert(new Q.VictoryZone());
+                    generateEnemies(stage);
+                });
+
+                Q.scene("roads", function(stage) {
+                    stage.insert(new Q.Road());
+                });
+
+                Q.scene('endGame',function(stage) {
+                    var box = stage.insert(new Q.UI.Container({
+                        x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+                    }));
+
+                    var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#336699",
+                        label: "Play Again" }));
+                    var label = box.insert(new Q.UI.Text({x:40, y: -40 - button.p.h,
+                        label: stage.options.label, color: "#fff" }));
+
+                    button.on("click",function() {
+                        Q.clearStages();
                         Q.stageScene("roads", 0);
-                        Q.stageScene("level1", 1);
+                        Q.stageScene('level1', 1);
                     });
+
+                    box.fit(20);
+                });
+
+                Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
+                    Q.stageScene("roads", 0);
+                    Q.stageScene("level1", 1);
+                });
+            }
+
+            function generateEnemies(stage) {
+                var enemies = [];
+
+                for (var i = 0; i < 5; i++) {
+                    enemies.push(stage.insert(new Q.Enemy()));
                 }
 
-                function generateEnemies(stage) {
-                    var enemies = [];
+                enemies.forEach(function(enemy, index) {
+                    enemy.p.x = getRandomNumber(0, 1000);
+                    enemy.p.y = 248 + (index * 100);
+                    enemy.p.vx = getRandomNumber(0, 1) ? -120 : 120;
+                });
+            }
 
-                    for (var i = 0; i < 5; i++) {
-                        enemies.push(stage.insert(new Q.Enemy()));
-                    }
-
-                    enemies.forEach(function(enemy, index) {
-                        enemy.p.x = getRandomNumber(0, 1000);
-                        enemy.p.y = 248 + (index * 100);
-                        enemy.p.vx = getRandomNumber(0, 1) ? -120 : 120;
-                    });
-                }
-
-                start();
-            }]);
-        })();
-    </script>
+            start();
+        }]);
+    })();
+</script>
 </body>
 </html>
