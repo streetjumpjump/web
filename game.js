@@ -40,6 +40,13 @@
                 this.add("2d, stepControls, animation");
                 Q.input.on("fire", this, "cheat");
 
+                this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                    if (collision.obj.isA("Enemy")) {
+                        this.destroy();
+                        Q.stageScene('sad', 3);
+                    }
+                });
+
             },
             step: function(dt) {
                 if (this.p.y > 750) {
@@ -102,11 +109,6 @@
 
                 this.add('2d');
 
-                this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                    if (collision.obj.isA("Player")) {
-                        Q.stageScene('sad', 3);
-                    }
-                });
             },
 
             step: function(dt) {
