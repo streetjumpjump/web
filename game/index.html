@@ -9,8 +9,6 @@
     <title>{{ game.info.title }}</title>
 </head>
 <body>
-    <h1>Complete</h1>
-
     <canvas id="quintus" width="250" height="200" style="background-color: #EEE;"></canvas>
 
     <script>
@@ -23,7 +21,6 @@
                 var vm = this;
 
                 vm.info = infoService;
-                // begin Quintus code -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
                 var Q = Quintus({
                     development: true
@@ -39,7 +36,7 @@
                 Q.Sprite.extend("Player", {
                     init: function(p) {
                         this._super({
-                            asset: 'local',
+                            asset: localStorage.img ? 'local' : infoService.defaultPath + infoService.player,
                             w: 25,
                             h: 25,
                             x: 100 + 12.5,
@@ -47,6 +44,12 @@
                         });
 
                         this.add("2d, stepControls");
+
+                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                            if (collision.obj.isA("VictoryZone")) {
+                                Q.stageScene("endGame",1, { label: "You Win!" });
+                            }
+                        });
                     }
                 });
 
@@ -59,13 +62,6 @@
                             x: 125,
                             y: 12.5
                         });
-
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                            if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame",1, { label: "You Win!" });
-                                collision.obj.destroy();
-                            }
-                        });
                     }
                 });
 
@@ -75,8 +71,6 @@
                             asset: infoService.defaultPath + infoService.enemy,
                             w: 25,
                             h: 25,
-                            x: 200,
-                            y: 75 - 12.5,
                             vx: -30
                         });
 
@@ -106,10 +100,20 @@
 
                 function start() {
                     Q.scene("level1", function(stage) {
-                        stage.insert(new Q.Player());
+                        var player = stage.insert(new Q.Player());
+
                         stage.insert(new Q.VictoryZone());
-                        stage.insert(new Q.Enemy({ x: 1, y: 2 }));
-                        stage.insert(new Q.Enemy({ x: 100, y: 200 }));
+
+                        var enemies = [];
+
+                        for (var i = 0; i < 5; i++) {
+                            enemies.push(stage.insert(new Q.Enemy({ x: 50, y: 50 })));
+                        }
+
+                        enemies.forEach(function(enemy, index) {
+                            enemy.p.x = 100 + (index * 30);
+                            enemy.p.y = 62 + (index * 25);
+                        });
                     });
 
                     Q.scene("roads", function(stage) {
@@ -135,7 +139,7 @@
                         box.fit(20);
                     });
 
-                    Q.load([ infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, 'local'], function() {
+                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.img ? 'local' : infoService.defaultPath + infoService.player], function() {
                         Q.stageScene("roads", 0);
                         Q.stageScene("level1", 1);
                     });
