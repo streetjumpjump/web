@@ -191,10 +191,7 @@
                         }));
 
                         button.on("click", function () {
-                            Q.clearStages();
-                            Q.stageScene("roads", 0);
-                            Q.stageScene('level1', 1);
-                            Q.stageScene('hud', 2, { label: levelCounter });
+                            startNextLevel();
                         });
 
                         box.fit(20);
@@ -205,6 +202,13 @@
                         resetBoard();
                     });
 
+                }
+
+                function startNextLevel() {
+                    Q.clearStages();
+                    Q.stageScene("roads", 0);
+                    Q.stageScene('level1', 1);
+                    Q.stageScene('hud', 2, { label: levelCounter });
                 }
 
                 function generateEnemies(stage) {
@@ -241,10 +245,7 @@
 
                 function resetBoard() {
                     levelCounter = 1;
-                    Q.clearStages();
-                    Q.stageScene("roads", 0);
-                    Q.stageScene('level1', 1);
-                    Q.stageScene('hud', 2, { label: levelCounter });
+                    startNextLevel();
                 }
 
                 document.getElementById("ResetPics").addEventListener("click", function() {
