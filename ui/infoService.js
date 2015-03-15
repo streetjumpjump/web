@@ -7,6 +7,7 @@
         var infoService = {
             title: 'Sample title',
             player: 'RunningFrog.png',
+            happyPlayer: 'HappyFrog.png',
             enemy: 'Truck.png',
             safeZone: 'safeZone.png',
             road: 'road.png',

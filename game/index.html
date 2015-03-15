@@ -55,18 +55,16 @@
 
                         this.add("2d, stepControls");
 
-                        //this.on("bump.left,bump.right,bump.bottom, bump.top", function (collision) {
-                        //    if (collision.obj.isA("VictoryZone")) {
-                        //        Q.stageScene("endGame", 2, { label: "You Win!" });
-                        //        collision.obj.destroy();
-                        //    }
-                        //});
                     },
                     step: function (dt) {
                         if (this.p.y > 750) {
                             this.p.y = 750;
                         } else if (this.p.y < 200) {
-                            Q.stageScene("endGame", 2, { label: "You Win!" });
+
+                            if (this.p.asset !== infoService.defaultPath + infoService.happyPlayer) {
+                                Q.stageScene("nextLevel", 2, { label: "Next Level" });
+                                this.p.asset = infoService.defaultPath + infoService.happyPlayer;
+                            }
                         }
 
                         if (this.p.x < 50) {
@@ -194,8 +192,7 @@
                             label: stage.options.label, color: "#fff"
                         }));
 
-
-                        button.on("click", function() {
+                        button.on("click", function () {
                             Q.clearStages();
                             Q.stageScene("roads", 0);
                             Q.stageScene('level1', 1);
@@ -206,7 +203,7 @@
 
                     });
 
-                    Q.load([infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
+                    Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         Q.stageScene("roads", 0);
                         Q.stageScene('level1', 1);
                         Q.stageScene('hud', 2, { label: levelCounter });
