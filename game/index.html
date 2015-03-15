@@ -53,17 +53,20 @@
 
                         this.add("2d, stepControls");
 
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function (collision) {
-                            if (collision.obj.isA("VictoryZone")) {
-                                Q.stageScene("endGame", 2, { label: "You Win!" });
-                                collision.obj.destroy();
-                            }
-                        });
+                        //this.on("bump.left,bump.right,bump.bottom, bump.top", function (collision) {
+                        //    if (collision.obj.isA("VictoryZone")) {
+                        //        Q.stageScene("endGame", 2, { label: "You Win!" });
+                        //        collision.obj.destroy();
+                        //    }
+                        //});
                     },
                     step: function (dt) {
                         if (this.p.y > 750) {
                             this.p.y = 750;
+                        } else if (this.p.y < 200) {
+                            Q.stageScene("endGame", 2, { label: "You Win!" });
                         }
+
                         if (this.p.x < 50) {
                             this.p.x = 50;
                         } else if (this.p.x > 950) {
@@ -155,7 +158,7 @@
 
                         var button = box.insert(new Q.UI.Button({
                             x: 0, y: 0, fill: "#369",
-                            label: "Play Again"
+                            label: "Play Again!"
                         }));
                         var label = box.insert(new Q.UI.Text({
                             x: 40, y: -40 - button.p.h,
