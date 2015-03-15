@@ -14,12 +14,12 @@
         <button id="ResetPics" class="btn" style="display: block; margin: 9px auto">Reset To Normal</button>
     </div>
     <script>
-        (function () {
+        (function() {
             'use strict';
 
             var app = angular.module('frogger');
 
-            app.controller('Game', ['infoService', function (infoService) {
+            app.controller('Game', ['infoService', function(infoService) {
                 var vm = this;
 
                 vm.info = infoService;
@@ -36,13 +36,13 @@
                         .setup("quintus")
                         .controls(true)
                         .touch();
-                    
+
                 Q.gravityX = 0;
                 Q.gravityY = 0;
                 Q.input.disableTouchControls();
 
                 Q.Sprite.extend("Player", {
-                    init: function (p) {
+                    init: function(p) {
                         this._super({
                             asset: localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player,
                             w: 100,
@@ -56,7 +56,7 @@
                         this.add("2d, stepControls");
 
                     },
-                    step: function (dt) {
+                    step: function(dt) {
                         if (this.p.y > 750) {
                             this.p.y = 750;
                         } else if (this.p.y < 200) {
@@ -76,7 +76,7 @@
                 });
 
                 Q.Sprite.extend("VictoryZone", {
-                    init: function (p) {
+                    init: function(p) {
                         this._super({
                             asset: infoService.defaultPath + infoService.victoryZone,
                             w: 1000,
@@ -88,7 +88,7 @@
                 });
 
                 Q.MovingSprite.extend("Enemy", {
-                    init: function () {
+                    init: function() {
                         this._super({
                             asset: localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy,
                             w: 100,
@@ -97,7 +97,7 @@
 
                         this.add('2d');
 
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function (collision) {
+                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
                                 Q.stageScene("endGame", 2, { label: "You Died" });
                                 collision.obj.destroy();
@@ -105,7 +105,7 @@
                         });
                     },
 
-                    step: function (dt) {
+                    step: function(dt) {
                         if (this.p.x < -50) {
                             this.p.x = 1050;
                         } else if (this.p.x > 1050) {
@@ -115,7 +115,7 @@
                 });
 
                 Q.Sprite.extend("Road", {
-                    init: function () {
+                    init: function() {
                         this._super({
                             asset: infoService.defaultPath + infoService.road,
                             w: 1000,
@@ -138,7 +138,7 @@
                 });
 
                 function start() {
-                    Q.scene("level1", function (stage) {
+                    Q.scene("level1", function(stage) {
                         stage.insert(new Q.Player());
                         generateEnemies(stage);
                     });
@@ -152,7 +152,7 @@
                         stage.insert(new Q.Hud());
                     })
 
-                    Q.scene('endGame', function (stage) {
+                    Q.scene('endGame', function(stage) {
                         var box = stage.insert(new Q.UI.Container({
                             x: Q.width / 2, y: Q.height / 2, fill: "rgba(0,0,0,0.5)"
                         }));
@@ -166,8 +166,10 @@
                             label: stage.options.label, color: "#fff"
                         }));
 
+
                         button.on("click", function () {
                             resetBoard();
+
                         });
 
                         box.fit(20);
@@ -202,7 +204,7 @@
                     Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         resetBoard();
                     });
-                    
+
                 }
 
                 function generateEnemies(stage) {
@@ -214,7 +216,7 @@
                         enemies.push(stage.insert(new Q.Enemy()));
                     }
 
-                    enemies.forEach(function (enemy, index) {
+                    enemies.forEach(function(enemy, index) {
                         var speed = getRandomNumber(minSpeed, maxSpeed);
                         enemy.p.x = getRandomNumber(0, 1000);
                         enemy.p.y = 248 + (index * 100);
@@ -245,7 +247,7 @@
                     Q.stageScene('hud', 2, { label: levelCounter });
                 }
 
-                document.getElementById("ResetPics").addEventListener("click", function () {
+                document.getElementById("ResetPics").addEventListener("click", function() {
                     resetPics();
                 });
 
@@ -253,7 +255,7 @@
 
             }]);
 
-            
+
         })();
 
         
