@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58899338-6846-4e5b-99d7-058e07dc6f7a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.js" afterPath="$PROJECT_DIR$/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play.html" afterPath="$PROJECT_DIR$/play.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web.iws" />
@@ -31,19 +29,28 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2121" max-vertical-offset="3000">
-              <caret line="270" column="50" selection-start-line="270" selection-start-column="50" selection-end-line="270" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2496" max-vertical-offset="3350">
+              <caret line="288" column="8" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
               <folding>
-                <element signature="e#2324#2621#0" expanded="false" />
-                <element signature="e#2664#3530#0" expanded="false" />
-                <element signature="e#3566#3855#0" expanded="false" />
-                <element signature="e#3891#4156#0" expanded="false" />
-                <element signature="e#4185#6526#0" expanded="false" />
-                <element signature="e#6562#6740#0" expanded="false" />
-                <element signature="e#6782#7475#0" expanded="false" />
-                <element signature="e#7506#7765#0" expanded="false" />
-                <element signature="e#7797#7868#0" expanded="false" />
-                <element signature="e#7952#7988#0" expanded="false" />
+                <element signature="e#2269#2566#0" expanded="false" />
+                <element signature="e#2609#3475#0" expanded="false" />
+                <element signature="e#3836#4101#0" expanded="false" />
+                <element signature="e#4130#6876#0" expanded="false" />
+                <element signature="e#6912#7090#0" expanded="false" />
+                <element signature="e#7132#7825#0" expanded="false" />
+                <element signature="e#7856#8115#0" expanded="false" />
+                <element signature="e#8147#8218#0" expanded="false" />
+                <element signature="e#8302#8338#0" expanded="false" />
+                <marker date="1426446678714" expanded="true" signature="811:1151" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1242:2140" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1267:1306" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1332:1900" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1433:1850" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1944:1966" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="1992:2028" placeholder="{...}" />
+                <marker date="1426446678714" expanded="true" signature="5381:5987" placeholder="{&quot;fill&quot;: &quot;rgba(0,0,0,0.5)&quot;...}" />
+                <marker date="1426446678714" expanded="true" signature="6044:6124" placeholder="{&quot;x&quot;: 40...}" />
+                <marker date="1426446678714" expanded="true" signature="6234:6347" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -52,8 +59,8 @@
       <file leaf-file-name="play.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/play.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64102566" vertical-offset="0" max-vertical-offset="1075">
-              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.11655012" vertical-offset="0" max-vertical-offset="1075">
+              <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#h4#0;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -237,7 +244,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -288,16 +295,25 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6500">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2324#2621#0" expanded="false" />
-            <element signature="e#2664#3530#0" expanded="false" />
-            <element signature="e#3566#3855#0" expanded="false" />
-            <element signature="e#3891#4156#0" expanded="false" />
-            <element signature="e#4185#6526#0" expanded="false" />
-            <element signature="e#6562#6740#0" expanded="false" />
-            <element signature="e#6782#7475#0" expanded="false" />
-            <element signature="e#7506#7765#0" expanded="false" />
-            <element signature="e#7797#7868#0" expanded="false" />
-            <element signature="e#7952#7988#0" expanded="false" />
+            <element signature="e#2269#2566#0" expanded="false" />
+            <element signature="e#2609#3475#0" expanded="false" />
+            <element signature="e#3836#4101#0" expanded="false" />
+            <element signature="e#4130#6876#0" expanded="false" />
+            <element signature="e#6912#7090#0" expanded="false" />
+            <element signature="e#7132#7825#0" expanded="false" />
+            <element signature="e#7856#8115#0" expanded="false" />
+            <element signature="e#8147#8218#0" expanded="false" />
+            <element signature="e#8302#8338#0" expanded="false" />
+            <marker date="1426446678714" expanded="true" signature="811:1151" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1242:2140" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1267:1306" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1332:1900" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1433:1850" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1944:1966" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1992:2028" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="5381:5987" placeholder="{&quot;fill&quot;: &quot;rgba(0,0,0,0.5)&quot;...}" />
+            <marker date="1426446678714" expanded="true" signature="6044:6124" placeholder="{&quot;x&quot;: 40...}" />
+            <marker date="1426446678714" expanded="true" signature="6234:6347" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -412,27 +428,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2121" max-vertical-offset="3000">
-          <caret line="270" column="50" selection-start-line="270" selection-start-column="50" selection-end-line="270" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2496" max-vertical-offset="3350">
+          <caret line="288" column="8" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
           <folding>
-            <element signature="e#2324#2621#0" expanded="false" />
-            <element signature="e#2664#3530#0" expanded="false" />
-            <element signature="e#3566#3855#0" expanded="false" />
-            <element signature="e#3891#4156#0" expanded="false" />
-            <element signature="e#4185#6526#0" expanded="false" />
-            <element signature="e#6562#6740#0" expanded="false" />
-            <element signature="e#6782#7475#0" expanded="false" />
-            <element signature="e#7506#7765#0" expanded="false" />
-            <element signature="e#7797#7868#0" expanded="false" />
-            <element signature="e#7952#7988#0" expanded="false" />
+            <element signature="e#2269#2566#0" expanded="false" />
+            <element signature="e#2609#3475#0" expanded="false" />
+            <element signature="e#3836#4101#0" expanded="false" />
+            <element signature="e#4130#6876#0" expanded="false" />
+            <element signature="e#6912#7090#0" expanded="false" />
+            <element signature="e#7132#7825#0" expanded="false" />
+            <element signature="e#7856#8115#0" expanded="false" />
+            <element signature="e#8147#8218#0" expanded="false" />
+            <element signature="e#8302#8338#0" expanded="false" />
+            <marker date="1426446678714" expanded="true" signature="811:1151" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1242:2140" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1267:1306" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1332:1900" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1433:1850" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1944:1966" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="1992:2028" placeholder="{...}" />
+            <marker date="1426446678714" expanded="true" signature="5381:5987" placeholder="{&quot;fill&quot;: &quot;rgba(0,0,0,0.5)&quot;...}" />
+            <marker date="1426446678714" expanded="true" signature="6044:6124" placeholder="{&quot;x&quot;: 40...}" />
+            <marker date="1426446678714" expanded="true" signature="6234:6347" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/play.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64102566" vertical-offset="0" max-vertical-offset="1075">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.11655012" vertical-offset="0" max-vertical-offset="1075">
+          <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
           <folding>
             <element signature="n#style#0;n#h4#0;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
