@@ -166,13 +166,8 @@
                             label: stage.options.label, color: "#fff"
                         }));
 
-
                         button.on("click", function () {
-                            Q.clearStages();
-                            Q.stageScene("roads", 0);
-                            Q.stageScene('level1', 1);
-                            levelCounter = 1;
-                            Q.stageScene('hud', 2, { label: levelCounter });
+                            resetBoard();
                         });
 
                         box.fit(20);
@@ -207,14 +202,13 @@
                     Q.load([infoService.defaultPath + infoService.happyPlayer, infoService.defaultPath + infoService.victoryZone, infoService.defaultPath + infoService.enemy, infoService.defaultPath + infoService.road, localStorage.playerImage ? 'player' : infoService.defaultPath + infoService.player, localStorage.enemyImage ? 'enemy' : infoService.defaultPath + infoService.enemy], function () {
                         resetBoard();
                     });
-
                     
                 }
 
                 function generateEnemies(stage) {
                     var enemies = [];
                     var minSpeed = 150 + (levelCounter * 60);
-                    var maxSpeed = minSpeed + 100;
+                    var maxSpeed = minSpeed + 200;
 
                     for (var i = 0; i < 5; i++) {
                         enemies.push(stage.insert(new Q.Enemy()));
