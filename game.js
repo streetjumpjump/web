@@ -4,6 +4,12 @@
     var app = angular.module('frogger');
 
     app.controller('Game', ['infoService', '$scope', '$firebaseObject', '$firebaseArray', function(infoService, $scope, $firebaseObject, $firebaseArray) {
+        var usersRefList = new Firebase("https://streep-jump-jump.firebaseio.com/users");
+        $scope.messages = $firebaseArray(usersRefList);
+
+        var highScoreRef = new Firebase("https://streep-jump-jump.firebaseio.com/highScore");
+        $scope.highScore = $firebaseObject(highScoreRef);
+
         var vm = this;
         vm.info = infoService;
 
@@ -206,14 +212,23 @@
             });
 
 
-
-
             Q.scene('happy', function(stage) {
                 var happyFrog = new Q.HappyFrog({ x: 400, y: 175 });
                 happyFrog.add("tween");
                 stage.insert(happyFrog);
                 happyFrog.animate({ angle: 720, x: 450, y: 750 }, 2.5, Q.Easing.Quadratic.InOut, {
                     callback: function() {
+                        console.log($scope.highScore.$value);
+                        console.log(levelCounter);
+
+                        if(levelCounter > $scope.highScore.$value) {
+                            highScoreRef.set(levelCounter);
+
+                            if(levelCounter !== 0) {
+                                $scope.highScore.$value = levelCounter - 1;
+                            }
+                        }
+
                         startNextLevel();
                     }
                 });
@@ -309,8 +324,5 @@
                 console.log('Login Failed!', error);
             }
         });
-
-        var usersRefList = new Firebase("https://streep-jump-jump.firebaseio.com/users");
-        $scope.messages = $firebaseArray(usersRefList);
     }]);
 })();
