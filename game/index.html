@@ -28,11 +28,11 @@
 
                 var Q = Quintus({
                     development: true
-                }).include("Scenes, Sprites, Input, 2D, Touch, UI")
+                }).include("Scenes, Sprites, 2D, UI, Input, Touch")
                         .setup("quintus")
                         .controls(true)
                         .touch();
-
+                    
                 Q.gravityX = 0;
                 Q.gravityY = 0;
 
@@ -174,7 +174,7 @@
                         enemy.p.y = 248 + (index * 100);
                         enemy.p.vx = getRandomNumber(0, 1) ? -500 : 620;
 
-                        if (enemy.p.vx > 0) {
+                        if (enemy.p.vx > 0 && !localStorage.enemyImage) {
                             enemy.p.angle = 180;
                         }
                     });
