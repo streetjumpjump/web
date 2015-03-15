@@ -47,6 +47,13 @@
                         });
 
                         this.add("2d, stepControls");
+
+                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
+                            if (collision.obj.isA("VictoryZone")) {
+                                Q.stageScene("endGame",1, { label: "You Win!" });
+                                collision.obj.destroy();
+                            }
+                        });
                     }
                 });
 
@@ -59,18 +66,11 @@
                             x: 500,
                             y: 50
                         });
-
-                        this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
-                            if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame",1, { label: "You Win!" });
-                                collision.obj.destroy();
-                            }
-                        });
                     }
                 });
 
                 Q.MovingSprite.extend("Enemy", {
-                    init: function(p) {
+                    init: function() {
                         this._super({
                             asset: infoService.defaultPath + infoService.enemy,
                             w: 100,
@@ -90,15 +90,14 @@
                 });
 
                 Q.Sprite.extend("Road", {
-                    init: function(p) {
-                        this._super(
-                            {
-                                asset: infoService.defaultPath + infoService.road,
-                                w: 1000,
-                                h: 600,
-                                x: 500,
-                                y: 500
-                            });
+                    init: function() {
+                        this._super({
+                            asset: infoService.defaultPath + infoService.road,
+                            w: 1000,
+                            h: 600,
+                            x: 500,
+                            y: 500
+                        });
                     }
                 });
 
