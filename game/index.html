@@ -99,7 +99,7 @@
 
                         this.on("bump.left,bump.right,bump.bottom, bump.top", function(collision) {
                             if (collision.obj.isA("Player")) {
-                                Q.stageScene("endGame", 2, { label: "You Died" });
+                                Q.stageScene("endGame", 2, { label: "You Died.  You Can't Die In A DEMO!" });
                                 collision.obj.destroy();
                             }
                         });
@@ -236,7 +236,7 @@
                         localStorage.removeItem("playerImage");
                     }
 
-                    resetBoard();
+                    start();
                 }
 
                 function resetBoard() {
