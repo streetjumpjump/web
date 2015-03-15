@@ -9,6 +9,10 @@
         vm.pageTitle = 'The Frogger Page';
 
         vm.info = infoService;
+
+        vm.showTitle = true;
+        vm.showImage = false;
+        vm.showGame = false;
     }]);
 })();
 
