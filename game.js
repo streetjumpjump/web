@@ -2,11 +2,12 @@
     'use strict';
 
     var app = angular.module('frogger');
-    console.log('out');
-    app.controller('Game', ['infoService', function(infoService) {
-        console.log('in');
-        var vm = this;
 
+    app.controller('Game', ['infoService', '$scope', '$firebaseObject', function(infoService, $scope, $firebaseObject) {
+        var ref = new Firebase("https://streep-jump-jump.firebaseio.com/");
+        $scope.data = $firebaseObject(ref);
+
+        var vm = this;
         vm.info = infoService;
 
         var levelCounter = 1;
