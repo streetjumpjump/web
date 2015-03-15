@@ -9,8 +9,6 @@
     <title>{{ game.info.title }}</title>
 </head>
 <body>
-    <h1>Complete</h1>
-
     <canvas id="quintus" width="250" height="200" style="background-color: #EEE;"></canvas>
 
     <script>
@@ -27,11 +25,10 @@
                 var Q = Quintus({
                     development: true,
                     imagePath: infoService.path
-                })
-                    .include("Scenes, Sprites, Input, 2D, Touch, UI")
-                    .setup("quintus")
-                    .controls(true)
-                    .touch();
+                }).include("Scenes, Sprites, Input, 2D, Touch, UI")
+                .setup("quintus")
+                .controls(true)
+                .touch();
 
                 Q.gravityX = 0;
                 Q.gravityY = 0;
@@ -73,10 +70,10 @@
                         this._super({
                             asset: infoService.enemy,
                             w: 25,
-                            h: 25,
-                            x: 200,
-                            y: 75 - 12.5,
-                            vx: -30
+                            h: 25
+                            //x: 200,
+                            //y: 75 - 12.5,
+                            //vx: -30
                         });
 
                         this.add('2d');
@@ -107,8 +104,8 @@
                     Q.scene("level1", function(stage) {
                         stage.insert(new Q.Player());
                         stage.insert(new Q.VictoryZone());
-                        stage.insert(new Q.Enemy({ x: 1, y: 2 }));
-                        stage.insert(new Q.Enemy({ x: 100, y: 200 }));
+                        stage.insert(new Q.Enemy({ x: 50, y: 50 }));
+                        stage.insert(new Q.Enemy({ x: 150, y: 150 }));
                     });
 
                     Q.scene("roads", function(stage) {
@@ -123,7 +120,7 @@
                         var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
                             label: "Play Again" }));
                         var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h,
-                            label: stage.options.label }));
+                            label: stage.options.label, color: "#fff" }));
 
                         button.on("click",function() {
                             Q.clearStages();
